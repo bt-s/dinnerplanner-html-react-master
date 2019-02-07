@@ -1,10 +1,11 @@
 # Dinner Planner React
+KTH Royal Institute of Technology DH2642 (Interaction Programming and the Dynamic Web) Dinner Planner React App
 
 ## How to get started
 
 Since modern frameworks use some advanced features like compiling the templates and source code in pure
-JavaScript and dynamically loading the needed content, you cannot anymore just open the HTML file 
-in the browser. Instead, you will need a local webserver that will serve your app. Follow the instructions 
+JavaScript and dynamically loading the needed content, you cannot anymore just open the HTML file
+in the browser. Instead, you will need a local webserver that will serve your app. Follow the instructions
 bellow to install all the neded dependencies (e.g. the framework libraries) and the development webserver.
 
 1. First, make sure that you have npm installed on your system (follow the instructions

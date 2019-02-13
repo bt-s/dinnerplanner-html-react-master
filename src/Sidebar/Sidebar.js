@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './Sidebar.css';
+import './Sidebar.scss';
 
 class Sidebar extends React.Component {
   constructor(props) {

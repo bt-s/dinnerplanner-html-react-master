@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Sidebar from '../Sidebar/Sidebar';
 import Dishes from '../Dishes/Dishes';
 
-import './SelectDish.css';
+import './SelectDish.scss';
 
 class SelectDish extends React.Component {
   render() {

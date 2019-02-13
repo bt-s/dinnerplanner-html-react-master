@@ -7,7 +7,7 @@ import { modelInstance } from '../data/DinnerModel'
 import SelectDish from "../SelectDish/SelectDish";
 import Welcome from '../Welcome/Welcome';
 
-import './App.css';
+import './App.scss';
 
 class App extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
+        <header className="app-header">
           <h1 className="App-title">{this.state.title}</h1>
 
           {/* We rended diffrent component based on the path */}

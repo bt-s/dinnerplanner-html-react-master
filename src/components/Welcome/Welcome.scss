@@ -1,1 +1,22 @@
 @import '../../styling/style.scss';
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    max-width: 500px;
+    margin: $padding-sm;
+    flex: 1 0 auto;
+    text-align: center;
+
+    @include media-breakpoint(sm) {
+      margin: $padding-lg;
+    }
+  }
+
+  button {
+    flex: 1 0 auto;
+  }
+}

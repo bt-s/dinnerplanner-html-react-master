@@ -8,6 +8,7 @@ import './Welcome.scss';
 class Welcome extends React.Component {
   render() {
     const buttonText = 'Create dinner';
+
     return (
       <div className="welcome">
         <p>Welcome to the dinner planner React Startup code!</p>

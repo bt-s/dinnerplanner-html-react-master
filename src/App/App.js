@@ -1,10 +1,11 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { modelInstance } from '../data/DinnerModel'
+import {modelInstance} from '../data/DinnerModel';
 
-import SelectDish from "../SelectDish/SelectDish";
+import DinnerOverview from '../DinnerOverview/DinnerOverview';
+import SelectDish from '../SelectDish/SelectDish';
 import Welcome from '../Welcome/Welcome';
 
 import './App.scss';
@@ -14,8 +15,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      title: "Dinner Planner",
-    }
+      title: 'Dinner Planner',
+    };
   }
 
   render() {
@@ -24,10 +25,16 @@ class App extends React.Component {
         <header className="app-header">
           <h1 className="App-title">{this.state.title}</h1>
 
-          {/* We rended diffrent component based on the path */}
-          <Route exact path="/" component={Welcome}/>
-          <Route path="/search" render={() => <SelectDish model={modelInstance}/>}/>
-
+          {/* We rended different component based on the path */}
+          <Route exact path="/" component={Welcome} />
+          <Route
+            path="/search"
+            render={() => <SelectDish model={modelInstance} />}
+          />
+          <Route
+            path="/dinner-overview"
+            render={() => <DinnerOverview model={modelInstance} />}
+          />
         </header>
       </div>
     );
@@ -35,7 +42,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default App;

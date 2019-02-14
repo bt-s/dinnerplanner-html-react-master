@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import './Sidebar.scss';
@@ -43,6 +44,9 @@ class Sidebar extends React.Component {
           <br />
           Total number of guests: {this.state.numberOfGuests}
         </p>
+        <Link to="/dinner-overview">
+          <button>Confirm Dinner</button>
+        </Link>
       </div>
     );
   }

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {modelInstance} from '../data/DinnerModel';
 
 import DinnerOverview from '../DinnerOverview/DinnerOverview';
+import DinnerPrintout from '../DinnerPrintout/DinnerPrintout';
 import SelectDish from '../SelectDish/SelectDish';
 import Welcome from '../Welcome/Welcome';
 
@@ -34,6 +35,10 @@ class App extends React.Component {
           <Route
             path="/dinner-overview"
             render={() => <DinnerOverview model={modelInstance} />}
+          />
+          <Route
+            path="/dinner-printout"
+            render={() => <DinnerPrintout model={modelInstance} />}
           />
         </header>
       </div>

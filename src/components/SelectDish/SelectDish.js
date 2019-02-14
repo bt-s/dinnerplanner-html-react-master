@@ -10,11 +10,11 @@ import './SelectDish.scss';
 class SelectDish extends React.Component {
   render() {
     return (
-      <div className="SelectDish">
+      <div className="select-dish">
         <h2>This is the Select Dish screen</h2>
 
         {/* We pass the model as property to the Sidebar component */}
-        <Sidebar model={this.props.model}/>
+        <Sidebar model={this.props.model} />
         <SearchDish />
         <Dishes />
       </div>
@@ -23,7 +23,7 @@ class SelectDish extends React.Component {
 }
 
 SelectDish.propTypes = {
-  model: PropTypes.object
-}
+  model: PropTypes.object,
+};
 
 export default SelectDish;

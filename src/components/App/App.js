@@ -22,9 +22,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="app-header">
-          <h1 className="App-title">{this.state.title}</h1>
+      <React.Fragment>
+        <header>
+          <h1>{this.state.title}</h1>
 
           {/* We rended different component based on the path */}
           <Route exact path="/" component={Welcome} />
@@ -41,7 +41,7 @@ class App extends React.Component {
             render={() => <DinnerPrintout model={modelInstance} />}
           />
         </header>
-      </div>
+      </React.Fragment>
     );
   }
 }

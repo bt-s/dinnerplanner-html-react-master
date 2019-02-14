@@ -11,12 +11,11 @@ class SelectDish extends React.Component {
   render() {
     return (
       <div className="select-dish">
-        <h2>This is the Select Dish screen</h2>
-
-        {/* We pass the model as property to the Sidebar component */}
         <Sidebar model={this.props.model} />
-        <SearchDish />
-        <Dishes />
+        <div className="dish-search-container">
+          <SearchDish />
+          <Dishes />
+        </div>
       </div>
     );
   }

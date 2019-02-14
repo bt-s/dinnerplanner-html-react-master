@@ -25,8 +25,9 @@ class App extends React.Component {
       <React.Fragment>
         <header>
           <h1>{this.state.title}</h1>
+        </header>
 
-          {/* We rended different component based on the path */}
+        <div className="page-container">
           <Route exact path="/" component={Welcome} />
           <Route
             path="/search"
@@ -40,7 +41,7 @@ class App extends React.Component {
             path="/dinner-printout"
             render={() => <DinnerPrintout model={modelInstance} />}
           />
-        </header>
+        </div>
       </React.Fragment>
     );
   }

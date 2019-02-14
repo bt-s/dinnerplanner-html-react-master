@@ -15,3 +15,26 @@ h1 {
     padding: $padding-md;
   }
 }
+
+.page-container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @include media-breakpoint(xs) {
+    max-width: 540px;
+  }
+
+  @include media-breakpoint(sm) {
+    max-width: 720px;
+  }
+
+  @include media-breakpoint(md) {
+    max-width: 960px;
+  }
+
+  @include media-breakpoint(lg) {
+    max-width: 1140px;
+  }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import SearchDish from '../SearchDish/SearchDish';
 import Sidebar from '../Sidebar/Sidebar';
 import Dishes from '../Dishes/Dishes';
 
@@ -14,7 +15,8 @@ class SelectDish extends React.Component {
 
         {/* We pass the model as property to the Sidebar component */}
         <Sidebar model={this.props.model}/>
-        <Dishes/>
+        <SearchDish />
+        <Dishes />
       </div>
     );
   }

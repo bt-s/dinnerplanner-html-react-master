@@ -47,7 +47,7 @@ class Dishes extends React.Component {
     }
 
     return (
-      <div className="Dishes">
+      <div className="dishes">
         <h3>Dishes</h3>
         <ul>{dishesList}</ul>
       </div>

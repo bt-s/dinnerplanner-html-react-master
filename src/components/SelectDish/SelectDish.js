@@ -12,8 +12,10 @@ class SelectDish extends React.Component {
     return (
       <div className="select-dish">
         <Sidebar model={this.props.model} />
-        <SearchDish />
-        <Dishes />
+        <div className="dish-search-container">
+          <SearchDish />
+          <Dishes />
+        </div>
       </div>
     );
   }

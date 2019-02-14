@@ -1,40 +1,40 @@
-import {APIKey} from './APIKey';
+import { APIKey } from './APIKey';
 
 const httpOptions = {
-  headers: {'X-Mashape-Key': APIKey},
+  headers: { 'X-Mashape-Key': APIKey },
 };
 
-const DinnerModel = function() {
+const DinnerModel = function () {
   let numberOfGuests = 4;
   let observers = [];
 
-  this.setNumberOfGuests = function(num) {
+  this.setNumberOfGuests = function (num) {
     numberOfGuests = num;
     notifyObservers();
   };
 
-  this.getNumberOfGuests = function() {
+  this.getNumberOfGuests = function () {
     return numberOfGuests;
   };
 
   // API Calls
-  this.getAllDishes = function() {
+  this.getAllDishes = function () {
     const url =
-      'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search';
+      'http://sunset.nada.kth.se:8080/iprog/group/30/recipes/search';
     return fetch(url, httpOptions)
       .then(processResponse)
       .catch(handleError);
   };
 
   // API Helper methods
-  const processResponse = function(response) {
+  const processResponse = function (response) {
     if (response.ok) {
       return response.json();
     }
     throw response;
   };
 
-  const handleError = function(error) {
+  const handleError = function (error) {
     if (error.json) {
       error.json().then(error => {
         console.error('getAllDishes() API Error:', error.message || error);
@@ -45,15 +45,15 @@ const DinnerModel = function() {
   };
 
   // Observer pattern
-  this.addObserver = function(observer) {
+  this.addObserver = function (observer) {
     observers.push(observer);
   };
 
-  this.removeObserver = function(observer) {
+  this.removeObserver = function (observer) {
     observers = observers.filter(o => o !== observer);
   };
 
-  const notifyObservers = function() {
+  const notifyObservers = function () {
     observers.forEach(o => o.update());
   };
 };

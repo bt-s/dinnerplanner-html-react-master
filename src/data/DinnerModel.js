@@ -1,61 +1,62 @@
-import { APIKey } from './APIKey';
+import { APIKey } from "./APIKey";
 
 const httpOptions = {
-  headers: { 'X-Mashape-Key': APIKey },
+  headers: { "X-Mashape-Key": APIKey }
 };
 
-const DinnerModel = function () {
-  let numberOfGuests = 4;
-  let observers = [];
+class DinnerModel {
+  numberOfGuests;
+  observers = [];
+  constructor(num) {
+    this.numberOfGuests = num;
+  }
 
-  this.setNumberOfGuests = function (num) {
-    numberOfGuests = num;
-    notifyObservers();
-  };
-
-  this.getNumberOfGuests = function () {
-    return numberOfGuests;
-  };
+  setNumberOfGuests(num) {
+    this.numberOfGuests = num;
+    this.notifyObservers();
+  }
+  getNumberOfGuests() {
+    return this.numberOfGuests;
+  }
 
   // API Calls
-  this.getAllDishes = function () {
-    const url =
-      'http://sunset.nada.kth.se:8080/iprog/group/30/recipes/search';
+  getAllDishes() {
+    const url = "http://sunset.nada.kth.se:8080/iprog/group/30/recipes/search";
     return fetch(url, httpOptions)
-      .then(processResponse)
-      .catch(handleError);
-  };
+      .then(this.processResponse)
+      .catch(this.handleError);
+  }
 
   // API Helper methods
-  const processResponse = function (response) {
+  processResponse(response) {
     if (response.ok) {
       return response.json();
     }
     throw response;
-  };
+  }
 
-  const handleError = function (error) {
+  handleError(error) {
     if (error.json) {
       error.json().then(error => {
-        console.error('getAllDishes() API Error:', error.message || error);
+        console.error("getAllDishes() API Error:", error.message || error);
       });
     } else {
-      console.error('getAllDishes() API Error:', error.message || error);
+      console.error("getAllDishes() API Error:", error.message || error);
     }
-  };
+  }
 
   // Observer pattern
-  this.addObserver = function (observer) {
-    observers.push(observer);
-  };
+  addObserver(observer) {
+    this.observers.push(observer);
+  }
 
-  this.removeObserver = function (observer) {
-    observers = observers.filter(o => o !== observer);
-  };
+  removeObserver(observer) {
+    this.observers = this.observers.filter(o => o !== observer);
+  }
 
-  const notifyObservers = function () {
-    observers.forEach(o => o.update());
-  };
-};
+  notifyObservers() {
+    this.observers.forEach(o => o.update());
+  }
+}
 
-export const modelInstance = new DinnerModel();
+export const modelInstance = new DinnerModel(3);

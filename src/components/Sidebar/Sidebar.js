@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import Button from '../Button/Button';
+
 import './Sidebar.scss';
 
 class Sidebar extends React.Component {
@@ -32,6 +34,7 @@ class Sidebar extends React.Component {
   };
 
   render() {
+    const buttonText = 'Confirm dinner';
     return (
       <div className="Sidebar">
         <h3>This is the sidebar</h3>
@@ -45,7 +48,7 @@ class Sidebar extends React.Component {
           Total number of guests: {this.state.numberOfGuests}
         </p>
         <Link to="/dinner-overview">
-          <button>Confirm Dinner</button>
+          <Button text={buttonText} />
         </Link>
       </div>
     );
@@ -53,7 +56,7 @@ class Sidebar extends React.Component {
 }
 
 Sidebar.propTypes = {
-  model: PropTypes.object
+  model: PropTypes.object,
 };
 
 export default Sidebar;

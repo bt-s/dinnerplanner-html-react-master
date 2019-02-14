@@ -2,7 +2,7 @@ import React from 'react';
 import {Route} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import {modelInstance} from '../data/DinnerModel';
+import {modelInstance} from '../../data/DinnerModel';
 
 import DinnerOverview from '../DinnerOverview/DinnerOverview';
 import DinnerPrintout from '../DinnerPrintout/DinnerPrintout';

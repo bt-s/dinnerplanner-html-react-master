@@ -1,5 +1,5 @@
 .dishes {
-  padding: 0;
+  padding: $padding-sm 0 0;
 }
 
 .dish-items-container {
@@ -17,6 +17,7 @@
     padding: $padding-xxs;
     flex: 0 0 100%;
     max-width: 100%;
+    text-decoration: none;
 
     @include media-breakpoint(xs) {
       flex: 0 0 50%;

@@ -1,7 +1,8 @@
-import { APIKey } from "./APIKey";
+import {APIKey} from './APIKey';
 
 const httpOptions = {
-  headers: { "X-Mashape-Key": APIKey }
+  method: 'GET',
+  headers: {'X-Mashape-Key': APIKey},
 };
 
 class DinnerModel {
@@ -20,8 +21,11 @@ class DinnerModel {
   }
 
   // API Calls
-  getAllDishes() {
-    const url = "http://sunset.nada.kth.se:8080/iprog/group/30/recipes/search";
+  getAllDishes(params) {
+    const url =
+      'http://sunset.nada.kth.se:8080/iprog/group/30/recipes/search' +
+      '?' +
+      params.toString();
     return fetch(url, httpOptions)
       .then(this.processResponse)
       .catch(this.handleError);
@@ -38,10 +42,10 @@ class DinnerModel {
   handleError(error) {
     if (error.json) {
       error.json().then(error => {
-        console.error("getAllDishes() API Error:", error.message || error);
+        console.error('getAllDishes() API Error:', error.message || error);
       });
     } else {
-      console.error("getAllDishes() API Error:", error.message || error);
+      console.error('getAllDishes() API Error:', error.message || error);
     }
   }
 

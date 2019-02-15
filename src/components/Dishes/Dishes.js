@@ -2,6 +2,8 @@ import React from 'react';
 
 import {modelInstance} from '../../data/DinnerModel';
 
+import Loader from '../Loader/Loader';
+
 import './Dishes.scss';
 
 class Dishes extends React.Component {
@@ -34,7 +36,7 @@ class Dishes extends React.Component {
 
     switch (this.state.status) {
       case 'INITIAL':
-        dishesList = <em>Loading...</em>;
+        dishesList = <Loader />;
         break;
       case 'LOADED':
         dishesList = this.state.dishes.map(dish => (

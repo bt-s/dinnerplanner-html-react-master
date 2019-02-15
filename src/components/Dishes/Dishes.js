@@ -4,8 +4,6 @@ import {modelInstance} from '../../data/DinnerModel';
 
 import Loader from '../Loader/Loader';
 
-import './Dishes.scss';
-
 class Dishes extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +20,7 @@ class Dishes extends React.Component {
         this.setState({
           status: 'LOADED',
           dishes: dishes.results,
+          baseUri: dishes.baseUri,
         });
       })
       .catch(() => {
@@ -33,6 +32,7 @@ class Dishes extends React.Component {
 
   render() {
     let dishesList = null;
+    const baseUri = this.state.baseUri;
 
     switch (this.state.status) {
       case 'INITIAL':
@@ -40,7 +40,10 @@ class Dishes extends React.Component {
         break;
       case 'LOADED':
         dishesList = this.state.dishes.map(dish => (
-          <li key={dish.id}>{dish.title}</li>
+          <a key={dish.id} href="/">
+            <img src={baseUri + dish.image} alt={dish.title} />
+            <h3>{dish.title}</h3>
+          </a>
         ));
         break;
       default:
@@ -51,7 +54,7 @@ class Dishes extends React.Component {
     return (
       <div className="dishes col">
         <h3>Dishes</h3>
-        <ul>{dishesList}</ul>
+        <div className="dish-items-container">{dishesList}</div>
       </div>
     );
   }

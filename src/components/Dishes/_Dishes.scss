@@ -1,0 +1,58 @@
+.dishes {
+  padding: 0;
+}
+
+.dish-items-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  width: calc(100% + 20px);
+  margin-left: -10px;
+
+  a {
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin-bottom: $padding-xxs;
+    padding: $padding-xxs;
+    flex: 0 0 100%;
+    max-width: 100%;
+
+    @include media-breakpoint(xs) {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+
+    @include media-breakpoint(sm) {
+      flex: 0 0 33%;
+      max-width: 33%;
+    }
+
+    @include media-breakpoint(md) {
+      flex: 0 0 25%;
+      max-width: 25%;
+    }
+
+    img {
+      border: 3px solid $black;
+      border-bottom: none;
+      min-height: 180px;
+      max-height: 180px !important;
+      min-width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+    }
+
+    h3 {
+      background: $grey;
+      font-size: 14px;
+      border: 3px solid $black;
+      padding: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+      margin: -7px 0 0;
+    }
+  }
+}

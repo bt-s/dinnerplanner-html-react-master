@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import Sidebar from '../Sidebar/Sidebar';
 
-import './DinnerOverview.scss';
-
 class DinnerOverview extends React.Component {
   render() {
     const buttonText = 'Print Full Recipe';

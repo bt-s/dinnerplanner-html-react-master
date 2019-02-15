@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import Sidebar from '../Sidebar/Sidebar';
 
-import './DinnerPrintout.scss';
-
 class DinnerPrintout extends React.Component {
   render() {
     return (

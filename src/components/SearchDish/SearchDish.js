@@ -1,7 +1,4 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
-
-import './SearchDish.scss';
 
 class SearchDish extends React.Component {
   render() {

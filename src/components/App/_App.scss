@@ -1,5 +1,3 @@
-@import '../../styling/style.scss';
-
 h1 {
   background: $grey;
   border-bottom: 4px solid $grey-darker;
@@ -21,6 +19,7 @@ h1 {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  padding-top: $padding-sm;
 
   @include media-breakpoint(xs) {
     max-width: 540px;

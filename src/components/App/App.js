@@ -9,8 +9,6 @@ import DinnerPrintout from '../DinnerPrintout/DinnerPrintout';
 import SelectDish from '../SelectDish/SelectDish';
 import Welcome from '../Welcome/Welcome';
 
-import './App.scss';
-
 class App extends React.Component {
   constructor(props) {
     super(props);

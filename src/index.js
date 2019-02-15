@@ -4,8 +4,6 @@ import {BrowserRouter} from 'react-router-dom';
 
 import App from './components/App/App';
 
-import './index.scss';
-
 const title = 'Dinner Planner';
 
 ReactDOM.render(

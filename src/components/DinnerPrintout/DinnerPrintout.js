@@ -8,18 +8,18 @@ import './DinnerPrintout.scss';
 class DinnerPrintout extends React.Component {
   render() {
     return (
-      <div className="dinner-printout">
+      <div className="dinner-printout col">
         <h2>This is the Dinner Printout screen</h2>
 
         {/* We pass the model as property to the Sidebar component */}
-        <Sidebar model={this.props.model}/>
+        <Sidebar model={this.props.model} />
       </div>
     );
   }
 }
 
 DinnerPrintout.propTypes = {
-  model: PropTypes.object
-}
+  model: PropTypes.object,
+};
 
 export default DinnerPrintout;

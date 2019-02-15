@@ -13,7 +13,7 @@ class DinnerOverview extends React.Component {
     const buttonId = 'printRecipeButton';
 
     return (
-      <div className="dinner-overview">
+      <div className="dinner-overview col">
         <h2>This is the Dinner Overview screen</h2>
 
         {/* We pass the model as property to the Sidebar component */}

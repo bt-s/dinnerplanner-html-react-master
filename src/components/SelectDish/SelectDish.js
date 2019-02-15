@@ -10,7 +10,7 @@ import './SelectDish.scss';
 class SelectDish extends React.Component {
   render() {
     return (
-      <div className="select-dish">
+      <div className="select-dish col">
         <Sidebar model={this.props.model} />
         <div className="dish-search-container">
           <SearchDish />

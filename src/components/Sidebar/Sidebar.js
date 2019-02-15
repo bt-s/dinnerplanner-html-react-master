@@ -36,7 +36,7 @@ class Sidebar extends React.Component {
   render() {
     const buttonText = 'Confirm dinner';
     return (
-      <div className="sidebar">
+      <div className="sidebar col">
         <h2>My Dinner</h2>
         <p>
           People:{' '}

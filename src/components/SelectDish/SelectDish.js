@@ -5,8 +5,6 @@ import SearchDish from '../SearchDish/SearchDish';
 import Sidebar from '../Sidebar/Sidebar';
 import Dishes from '../Dishes/Dishes';
 
-import './SelectDish.scss';
-
 class SelectDish extends React.Component {
   render() {
     return (

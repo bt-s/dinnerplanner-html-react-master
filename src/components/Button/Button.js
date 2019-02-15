@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './Button.scss';
-
 const Button = props => {
   return (
-    <button id={props.id} className={props.className}>
+    <button
+      className={props.className}
+      id={props.id}
+      onClick={props.onClick}
+      type={props.type}>
       {props.text}
     </button>
   );
@@ -14,12 +16,15 @@ const Button = props => {
 Button.defaultProps = {
   className: 'btn btn-orange',
   text: '',
+  type: 'button',
 };
 
 Button.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
+  onClick: PropTypes.func,
   text: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default Button;

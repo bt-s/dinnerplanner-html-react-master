@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
 
-import './Sidebar.scss';
-
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);

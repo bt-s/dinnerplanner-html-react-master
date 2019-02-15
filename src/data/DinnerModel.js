@@ -44,8 +44,11 @@ class DinnerModel {
   }
 
   // API Calls
-  getAllDishes() {
-    const url = 'http://sunset.nada.kth.se:8080/iprog/group/30/recipes/search';
+  getAllDishes(params) {
+    const url =
+      'http://sunset.nada.kth.se:8080/iprog/group/30/recipes/search' +
+      '?' +
+      params.toString();
     return fetch(url, httpOptions)
       .then(this.processResponse)
       .catch(this.handleError);

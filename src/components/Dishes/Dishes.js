@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 import {modelInstance} from '../../data/DinnerModel';
 
@@ -40,10 +41,10 @@ class Dishes extends React.Component {
         break;
       case 'LOADED':
         dishesList = this.state.dishes.map(dish => (
-          <a key={dish.id} href="/">
+          <Link to={'/dish/' + kebabCase(dish.title)} key={dish.id} href="/">
             <img src={baseUri + dish.image} alt={dish.title} />
             <h3>{dish.title}</h3>
-          </a>
+          </Link>
         ));
         break;
       default:
@@ -59,5 +60,11 @@ class Dishes extends React.Component {
     );
   }
 }
+
+const kebabCase = string =>
+  string
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/\s+/g, '-')
+    .toLowerCase();
 
 export default Dishes;

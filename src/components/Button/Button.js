@@ -23,7 +23,7 @@ Button.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
   onClick: PropTypes.func,
-  text: PropTypes.string,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   type: PropTypes.string,
 };
 

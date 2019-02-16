@@ -1,8 +1,8 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import {modelInstance} from '../../data/DinnerModel';
+import { modelInstance } from '../../data/DinnerModel';
 
 import DinnerOverview from '../DinnerOverview/DinnerOverview';
 import DinnerPrintout from '../DinnerPrintout/DinnerPrintout';
@@ -14,10 +14,23 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      title: 'Dinner Planner',
+      title: 'Dinner Planner'
     };
   }
 
+  componentDidMount() {
+    window.addEventListener(
+      'beforeunload',
+      modelInstance.bindToSelf(modelInstance.storeData)
+    );
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(
+      'beforeunload',
+      modelInstance.bindToSelf(modelInstance.storeData)
+    );
+  }
   render() {
     return (
       <React.Fragment>
@@ -25,18 +38,18 @@ class App extends React.Component {
           <h1>{this.state.title}</h1>
         </header>
 
-        <div className="page-container">
-          <Route exact path="/" component={Welcome} />
+        <div className='page-container'>
+          <Route exact path='/' component={Welcome} />
           <Route
-            path="/search"
+            path='/search'
             render={() => <SelectDish model={modelInstance} />}
           />
           <Route
-            path="/dinner-overview"
+            path='/dinner-overview'
             render={() => <DinnerOverview model={modelInstance} />}
           />
           <Route
-            path="/dinner-printout"
+            path='/dinner-printout'
             render={() => <DinnerPrintout model={modelInstance} />}
           />
         </div>
@@ -46,7 +59,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string
 };
 
 export default App;

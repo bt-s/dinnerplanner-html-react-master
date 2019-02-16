@@ -1,4 +1,4 @@
-const DEBUG_MODE = true;
+const DEBUG_MODE = 0;
 
 const print = (...info) => {
   if (DEBUG_MODE) {
@@ -51,7 +51,7 @@ class StoreUtil {
     }
     if (this.dbMap[k].locked) {
       if (typeof v !== this.dbMap[k].type) {
-        print(
+        console.error(
           'type of',
           v,
           'does not match the locked type which is',
@@ -59,13 +59,13 @@ class StoreUtil {
         );
       }
     }
-    this.dbMap[k] = v;
+    this.dbMap[k].value = v;
     return this;
   }
 
   typeParser(value, newType) {
     const parser = {
-      number: input => parseInt(input),
+      number: input => (isNaN(parseInt(input)) ? 0 : parseInt(input)),
       object: input =>
         typeof input === 'string'
           ? JSON.parse(input)
@@ -73,14 +73,13 @@ class StoreUtil {
               input,
               "is not a string, can't be parsed to an object"
             ),
-      string: input => input.toString()
+      string: input =>
+        typeof input === 'object' ? JSON.stringify(input) : input.toString()
     };
     if (!parser[newType]) {
       console.error("Can't parse to type", newType);
       return false;
     }
-    print('v', value, 'type', typeof value, 'parser', parser[typeof value]);
-    print('new type is', newType);
     return parser[newType](value);
   }
 
@@ -88,22 +87,21 @@ class StoreUtil {
   load() {
     for (const key in this.dbMap) {
       if (localStorage[key]) {
-        print('locked?', this.dbMap[key].locked);
         //convert type
         let newVal = this.dbMap[key].locked
           ? this.typeParser(localStorage[key], this.dbMap[key].type)
           : localStorage[key];
-
-        this.update(key, 1);
+        this.update(key, newVal);
       }
     }
   }
 
   save() {
     for (const key in this.dbMap) {
-      if (this.dbMap.hasOwnProperty(key)) {
-        localStorage.setItem(key, this.dbMap[key]);
-      }
+      localStorage.setItem(
+        key,
+        this.typeParser(this.dbMap[key].value, 'string')
+      );
     }
   }
 }

@@ -7,13 +7,6 @@ const httpOptions = {
 };
 
 class DinnerModel {
-  _userDataTemplate = {
-    selectedDishes: [],
-    searchCondition: { kwd: '', type: '' },
-    viewingDishID: '2',
-    offset: 0,
-    numberOfGuests: 0
-  };
   _storeAgent = new StoreUtil({
     selectedDishes: [],
     searchCondition: { kwd: '', type: '' },
@@ -24,7 +17,7 @@ class DinnerModel {
   _observers = [];
 
   constructor(num = 1, readLocal = true) {
-    this.setNumberOfGuests(num);
+    this.updateStoreData('numberOfGuests', num);
     if (readLocal) {
       this._storeAgent.load();
     }
@@ -36,6 +29,20 @@ class DinnerModel {
 
   updateStoreData(key, value) {
     this._storeAgent.update(key, value);
+    // notify observers
+    switch (key) {
+      case 'numberOfGuests':
+        this.notifyObservers();
+        break;
+      case 'offset':
+        break;
+      case 'searchCondition':
+        break;
+      case 'selectedDishes':
+        break;
+      default:
+        break;
+    }
   }
   getStoreData(key) {
     return this._storeAgent.get(key);
@@ -43,14 +50,6 @@ class DinnerModel {
 
   storeData() {
     this._storeAgent.save();
-  }
-
-  setNumberOfGuests(num) {
-    this.updateStoreData('numberOfGuests', num);
-    this.notifyObservers();
-  }
-  getNumberOfGuests() {
-    return this.getStoreData('numberOfGuests');
   }
 
   // API Calls

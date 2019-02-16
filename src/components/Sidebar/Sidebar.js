@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
@@ -9,7 +9,7 @@ class Sidebar extends React.Component {
     super(props);
 
     this.state = {
-      numberOfGuests: this.props.model.getNumberOfGuests(),
+      numberOfGuests: this.props.model.getStoreData('numberOfGuests')
     };
   }
 
@@ -23,18 +23,18 @@ class Sidebar extends React.Component {
 
   update() {
     this.setState({
-      numberOfGuests: this.props.model.getNumberOfGuests(),
+      numberOfGuests: this.props.model.getStoreData('numberOfGuests')
     });
   }
 
   onNumberOfGuestsChanged = e => {
-    this.props.model.setNumberOfGuests(+e.target.value);
+    this.props.model.updateStoreData('numberOfGuests', +e.target.value);
   };
 
   render() {
     const buttonText = 'Confirm dinner';
     return (
-      <div className="sidebar col">
+      <div className='sidebar col'>
         <h2>My Dinner</h2>
         <p>
           People:{' '}
@@ -45,7 +45,7 @@ class Sidebar extends React.Component {
           <br />
           Total number of guests: {this.state.numberOfGuests}
         </p>
-        <Link to="/dinner-overview">
+        <Link to='/dinner-overview'>
           <Button text={buttonText} />
         </Link>
       </div>
@@ -54,7 +54,7 @@ class Sidebar extends React.Component {
 }
 
 Sidebar.propTypes = {
-  model: PropTypes.object,
+  model: PropTypes.object
 };
 
 export default Sidebar;

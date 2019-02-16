@@ -38,6 +38,7 @@ class Dishes extends React.Component {
 
   componentDidMount() {
     this.setState({ isMounted: !this.state.isMounted });
+    // kwd and type should be added ......
     this.callAPI('offset=' + this.state.offset);
   }
 

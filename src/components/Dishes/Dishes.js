@@ -1,7 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import {modelInstance} from '../../data/DinnerModel';
+import { modelInstance } from '../../data/DinnerModel';
 
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
@@ -15,7 +15,7 @@ class Dishes extends React.Component {
       isToggleOn: true,
       status: 'INITIAL',
       itemsPerPage: 10,
-      offset: 0,
+      offset: modelInstance.getStoreData('offset')
     };
   }
 
@@ -26,19 +26,20 @@ class Dishes extends React.Component {
         this.setState({
           status: 'LOADED',
           dishes: dishes.results,
-          baseUri: dishes.baseUri,
+          baseUri: dishes.baseUri
         });
       })
       .catch(() => {
         this.setState({
-          status: 'ERROR',
+          status: 'ERROR'
         });
       });
   };
 
   componentDidMount() {
-    this.setState({isMounted: !this.state.isMounted});
-    this.callAPI('');
+    this.setState({ isMounted: !this.state.isMounted });
+    // kwd and type should be added ......
+    this.callAPI('offset=' + this.state.offset);
   }
 
   handlePaginationButtons = e => {
@@ -58,9 +59,12 @@ class Dishes extends React.Component {
     this.setState(
       state => ({
         offset: state.offset + stepSize,
-        status: 'INITIAL',
+        status: 'INITIAL'
       }),
-      () => this.callAPI('offset=' + this.state.offset),
+      () => {
+        this.callAPI('offset=' + this.state.offset);
+        modelInstance.updateStoreData('offset', this.state.offset);
+      }
     );
   };
 
@@ -74,7 +78,7 @@ class Dishes extends React.Component {
         break;
       case 'LOADED':
         dishesList = this.state.dishes.map(dish => (
-          <Link to={'/dish/' + kebabCase(dish.title)} key={dish.id} href="/">
+          <Link to={'/dish/' + kebabCase(dish.title)} key={dish.id} href='/'>
             <img src={baseUri + dish.image} alt={dish.title} />
             <h3>{dish.title}</h3>
           </Link>
@@ -88,23 +92,23 @@ class Dishes extends React.Component {
     const paginationButtons =
       this.state.offset === 0 ? (
         <Button
-          className="next-button btn btn-orange"
-          id="next"
+          className='next-button btn btn-orange'
+          id='next'
           onClick={this.handlePaginationButtons}
           text={'Show next ' + this.state.itemsPerPage + ' dishes'}
         />
       ) : (
         <React.Fragment>
           <Button
-            className="previous-button btn btn-orange"
-            id="previous"
+            className='previous-button btn btn-orange'
+            id='previous'
             onClick={this.handlePaginationButtons}
             text={'Show previous ' + this.state.itemsPerPage + ' dishes'}
           />
 
           <Button
-            className="next-button btn btn-orange"
-            id="next"
+            className='next-button btn btn-orange'
+            id='next'
             onClick={this.handlePaginationButtons}
             text={'Show next ' + this.state.itemsPerPage + ' dishes'}
           />
@@ -112,8 +116,8 @@ class Dishes extends React.Component {
       );
 
     return (
-      <div className="dishes col">
-        <div className="dish-items-container">{dishesList}</div>
+      <div className='dishes col'>
+        <div className='dish-items-container'>{dishesList}</div>
 
         {paginationButtons}
       </div>

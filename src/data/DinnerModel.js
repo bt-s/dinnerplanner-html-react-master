@@ -1,30 +1,61 @@
-import {APIKey} from './APIKey';
+import { APIKey } from './APIKey';
+import { StoreUtil, print } from '../Utils';
 
 const httpOptions = {
   method: 'GET',
-  headers: {'X-Mashape-Key': APIKey},
+  headers: { 'X-Mashape-Key': APIKey }
 };
 
 class DinnerModel {
-  numberOfGuests;
-  observers = [];
-  constructor(num) {
-    this.numberOfGuests = num;
+  _storeAgent = new StoreUtil({
+    selectedDishes: [],
+    searchCondition: { kwd: '', type: '' },
+    viewingDishID: '2',
+    offset: 0,
+    numberOfGuests: 0
+  });
+  _observers = [];
+
+  constructor(num = 1, readLocal = true) {
+    this.updateStoreData('numberOfGuests', num);
+    if (readLocal) {
+      this._storeAgent.load();
+    }
   }
 
-  setNumberOfGuests(num) {
-    this.numberOfGuests = num;
-    this.notifyObservers();
+  bindToSelf(func) {
+    return func.bind(this);
   }
-  getNumberOfGuests() {
-    return this.numberOfGuests;
+
+  updateStoreData(key, value) {
+    this._storeAgent.update(key, value);
+    // notify observers
+    switch (key) {
+      case 'numberOfGuests':
+        this.notifyObservers();
+        break;
+      case 'offset':
+        break;
+      case 'searchCondition':
+        break;
+      case 'selectedDishes':
+        break;
+      default:
+        break;
+    }
+  }
+  getStoreData(key) {
+    return this._storeAgent.get(key);
+  }
+
+  storeData() {
+    this._storeAgent.save();
   }
 
   // API Calls
   getAllDishes(params) {
     const url =
-      'http://sunset.nada.kth.se:8080/iprog/group/30/recipes/search' +
-      '?' +
+      'http://sunset.nada.kth.se:8080/iprog/group/30/recipes/search?' +
       params.toString();
     return fetch(url, httpOptions)
       .then(this.processResponse)
@@ -51,15 +82,15 @@ class DinnerModel {
 
   // Observer pattern
   addObserver(observer) {
-    this.observers.push(observer);
+    this._observers.push(observer);
   }
 
   removeObserver(observer) {
-    this.observers = this.observers.filter(o => o !== observer);
+    this._observers = this._observers.filter(o => o !== observer);
   }
 
   notifyObservers() {
-    this.observers.forEach(o => o.update());
+    this._observers.forEach(o => o.update());
   }
 }
 

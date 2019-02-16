@@ -30,3 +30,4 @@ yarn-error.log*
 [._]ss[a-gi-z]
 [._]sw[a-p]
 
+.vscode/launch.json

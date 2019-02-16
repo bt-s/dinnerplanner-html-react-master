@@ -1,31 +1,32 @@
+'use strict';
 import { APIKey } from './APIKey';
 import { StoreUtil, print } from '../Utils';
 
 const httpOptions = {
+  method: 'GET',
   headers: { 'X-Mashape-Key': APIKey }
 };
 
 class DinnerModel {
-  // this template was used as a reference for reading and storing data locally
-  _storeTemplate = {
-    currentScreen: '',
-    numberOfGuests: 1,
-    selectedDishes: [1, 2, 3, 4, 5],
+  _userData = {
+    selectedDishes: [],
     searchCondition: { kwd: '', type: '' },
-    viewingDishID: '',
-    offset: 0
+    viewingDishID: '2',
+    offset: 0,
+    numberOfGuests: 0
   };
   _storeAgent = new StoreUtil();
-  numberOfGuests;
-  observers = [];
+  _observers = [];
+
   constructor(num = 1, readLocal = true) {
-    this.numberOfGuests = num;
+    this.setNumberOfGuests(num);
     // setting up store agent
-    for (const key in this.storeTemplate) {
-      this._storeAgent.add(key, this.storeTemplate[key]);
+    for (const key in this._userData) {
+      this._storeAgent.add(key, this._userData[key]);
     }
+    print('dbmap!!!!!', this._storeAgent.dbMap);
     if (readLocal) {
-      this._storeAgent.load();
+      this.injectData();
     }
     print(this._storeAgent.typeParser('9887', 'number'));
     print(this._storeAgent.typeParser(12345, 'string'));
@@ -34,20 +35,36 @@ class DinnerModel {
     );
   }
 
+  bindToSelf(func) {
+    return func.bind(this);
+  }
+
+  injectData() {
+    this._storeAgent.load();
+    for (const key in this._userData) {
+      this._userData[key] = this._storeAgent.get(key);
+    }
+    print('Data injected!!!!!', this._userData);
+  }
+
+  storeData() {
+    this._storeAgent.update('pathName', window.location.pathname);
+    this._storeAgent.update('numberOfGuests', this.getNumberOfGuests());
+    this._storeAgent.save();
+  }
+
   setNumberOfGuests(num) {
-    this.numberOfGuests = num;
-    this._storeAgent.update(this._storeTemplate.numberOfGuests, num);
+    this._userData.numberOfGuests = num;
     this.notifyObservers();
   }
   getNumberOfGuests() {
-    return this.numberOfGuests;
+    return this._userData.numberOfGuests;
   }
 
   // API Calls
   getAllDishes(params) {
     const url =
-      'http://sunset.nada.kth.se:8080/iprog/group/30/recipes/search' +
-      '?' +
+      'http://sunset.nada.kth.se:8080/iprog/group/30/recipes/search?' +
       params.toString();
     return fetch(url, httpOptions)
       .then(this.processResponse)
@@ -74,15 +91,15 @@ class DinnerModel {
 
   // Observer pattern
   addObserver(observer) {
-    this.observers.push(observer);
+    this._observers.push(observer);
   }
 
   removeObserver(observer) {
-    this.observers = this.observers.filter(o => o !== observer);
+    this._observers = this._observers.filter(o => o !== observer);
   }
 
   notifyObservers() {
-    this.observers.forEach(o => o.update());
+    this._observers.forEach(o => o.update());
   }
 }
 

@@ -7,9 +7,14 @@ const print = (...info) => {
 };
 
 class StoreUtil {
-  constructor() {
+  constructor(template) {
     //map to store key-value pairs
     this.dbMap = {};
+    if (template) {
+      for (const key in template) {
+        this.add(key, template[key]);
+      }
+    }
   }
 
   get(k) {

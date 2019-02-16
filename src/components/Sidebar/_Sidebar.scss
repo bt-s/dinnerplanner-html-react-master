@@ -15,18 +15,6 @@
   h2 {
     margin-top: $padding-xxs;
   }
-}
-
-.side-bar {
-  display: flex;
-  flex-direction: column;
-  border: 4px solid $black;
-  overflow: auto;
-  height: 100%;
-
-  h2 {
-    margin-top: $padding-xxs;
-  }
 
   ul {
     list-style: none;
@@ -39,7 +27,7 @@
   }
 
   &.menu-open {
-    .side-bar-menu {
+    .sidebar-menu {
       display: flex;
     }
 
@@ -81,6 +69,7 @@
     height: 15px;
     border: none;
     box-shadow: none;
+    background: transparent;
 
     &:focus {
       box-shadow: none;
@@ -92,10 +81,15 @@
   }
 }
 
-.side-bar-header {
+.sidebar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  button {
+    background: none;
+    border: none;
+  }
 
   .fa-times,
   .fa-bars {
@@ -116,7 +110,7 @@
   }
 }
 
-.side-bar-menu {
+.sidebar-menu {
   display: none;
   flex-direction: column;
 
@@ -129,7 +123,7 @@
   }
 }
 
-.side-bar-sub-header {
+.sidebar-sub-header {
   width: calc(100% + 30px);
   margin-left: -15px;
   border: 2px solid black;

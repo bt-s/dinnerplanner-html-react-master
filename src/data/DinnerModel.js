@@ -1,23 +1,23 @@
-import { APIKey } from './APIKey';
-import { StoreUtil, print } from '../Utils';
+import {APIKey} from './APIKey';
+import {StoreUtil, print} from '../Utils';
 
 const httpOptions = {
   method: 'GET',
-  headers: { 'X-Mashape-Key': APIKey }
+  headers: {'X-Mashape-Key': APIKey},
 };
 
 class DinnerModel {
   _storeAgent = new StoreUtil({
     selectedDishes: [],
-    searchCondition: { kwd: '', type: '' },
+    searchCondition: {kwd: '', type: ''},
     viewingDishID: '2',
     offset: 0,
-    numberOfGuests: 0
+    numberOfPeople: 0,
   });
   _observers = [];
 
   constructor(num = 1, readLocal = true) {
-    this.updateStoreData('numberOfGuests', num);
+    this.updateStoreData('numberOfPeople', num);
     if (readLocal) {
       this._storeAgent.load();
     }
@@ -31,7 +31,7 @@ class DinnerModel {
     this._storeAgent.update(key, value);
     // notify observers
     switch (key) {
-      case 'numberOfGuests':
+      case 'numberOfPeople':
         this.notifyObservers();
         break;
       case 'offset':

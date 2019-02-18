@@ -120,12 +120,6 @@ class DinnerModel {
   getDishTypes() {
     return [...new Set(this.dishTypes)];
   }
-
-  setSearchCondition(type, kwd, offset) {
-    this.searchCondition[0] = type;
-    this.searchCondition[1] = kwd;
-    this.searchCondition[2] = parseInt(offset);
-  }
 }
 
 export const modelInstance = new DinnerModel(3);

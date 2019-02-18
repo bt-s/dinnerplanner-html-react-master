@@ -39,7 +39,6 @@ class Sidebar extends React.Component {
 
   onNumberOfPeopleChanged = id => {
     const numberOfPeople = this.state.numberOfPeople;
-    console.log(id);
 
     if (numberOfPeople < 2 && id === 'minusPerson') {
       return;

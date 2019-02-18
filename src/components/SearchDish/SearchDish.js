@@ -6,12 +6,14 @@ import {titalizeWords} from '../../Utils';
 class SearchDish extends React.Component {
   constructor(props) {
     super(props);
+    const searchCondition = this.props.model.getStoreData('searchCondition');
     this.state = {
-      keyword: this.props.model.getStoreData('searchCondition')[0],
-      type: this.props.model.getStoreData('searchCondition')[1],
-      offset: this.props.model.getStoreData('offset'),
-      searchCondition: this.props.model.getStoreData('searchCondition'),
+      keyword: searchCondition.kwd,
+      type: searchCondition.type,
+      offset: searchCondition.offset,
+      // searchCondition: this.props.model.getStoreData('searchCondition'),
     };
+    console.log('searchDish constructor', this.state);
   }
 
   componentDidMount() {
@@ -22,10 +24,16 @@ class SearchDish extends React.Component {
     this.props.model.removeObserver(this);
   }
 
+  // what's the purpose of this function?
+  // now search condition is disappeared after refresh
   update() {
+    console.log('searchDish update called', searchCondition);
+
+    const searchCondition = this.props.model.getStoreData('searchCondition');
     this.setState({
-      offset: this.props.model.getStoreData('offset'),
-      searchCondition: this.props.model.getStoreData('searchCondition'),
+      offset: searchCondition.offset,
+      type: searchCondition.type,
+      keyword: searchCondition.kwd,
     });
   }
 
@@ -72,7 +80,8 @@ class SearchDish extends React.Component {
             <select
               className="dish-type-select"
               value={this.state.type}
-              onChange={this.onHandleSelectChange}>
+              onChange={this.onHandleSelectChange}
+            >
               <option value="">All</option>
               {dishTypes}
             </select>

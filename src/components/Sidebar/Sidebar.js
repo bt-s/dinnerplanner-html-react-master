@@ -59,6 +59,13 @@ class Sidebar extends React.Component {
     const showMenu = this.state.showMenu;
     const numberOfPeople = this.state.numberOfPeople;
 
+    const sidebarSubHeader = (
+      <div className="sidebar-sub-header">
+        <span>Dish Name</span>
+        <span>Cost</span>
+      </div>
+    );
+
     return (
       <div className={showMenu ? 'sidebar col menu-open' : 'sidebar col'}>
         <SidebarHeader
@@ -75,10 +82,7 @@ class Sidebar extends React.Component {
             arrowDown={faAngleDown}
           />
 
-          <div className="sidebar-sub-header">
-            <span>Dish Name</span>
-            <span>Cost</span>
-          </div>
+          {sidebarSubHeader}
 
           <ul id="selectedDishes" />
 

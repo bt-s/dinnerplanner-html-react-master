@@ -23,3 +23,26 @@
     padding-left: $padding-md;
   }
 }
+
+.keyword-input,
+.dish-type-select {
+  background: none;
+  border: 3px solid $black;
+  padding-left: $padding-xs;
+  margin-right: $padding-xs;
+  height: 32px;
+}
+
+.keyword-input {
+  margin-bottom: $padding-xxs;
+
+  @include media-breakpoint(sm) {
+    margin-bottom: 0;
+  }
+}
+
+.btn-search-dish {
+  height: 32px;
+  padding: 0 $padding-xs;
+  margin-top: -4px;
+}

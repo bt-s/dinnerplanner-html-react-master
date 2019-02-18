@@ -11,6 +11,22 @@ body {
   font-family: sans-serif;
 }
 
+h1 {
+  background: $grey;
+  border-bottom: 4px solid $grey-darker;
+  color: $black;
+  text-align: center;
+  padding: $padding-xs;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+
+  @include media-breakpoint(sm) {
+    font-size: 40px;
+    padding: $padding-md;
+  }
+}
+
 h2 {
   font-size: 25px;
   font-weight: 700;
@@ -54,4 +70,28 @@ a {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
+}
+
+.page-container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: $padding-sm;
+
+  @include media-breakpoint(xs) {
+    max-width: 540px;
+  }
+
+  @include media-breakpoint(sm) {
+    max-width: 720px;
+  }
+
+  @include media-breakpoint(md) {
+    max-width: 960px;
+  }
+
+  @include media-breakpoint(lg) {
+    max-width: 1140px;
+  }
 }

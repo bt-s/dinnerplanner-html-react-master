@@ -37,14 +37,14 @@ class Sidebar extends React.Component {
     });
   }
 
-  onChangeNumberOfPeople = e => {
+  onNumberOfPeopleChanged = id => {
     const numberOfPeople = this.state.numberOfPeople;
 
-    if (numberOfPeople < 2 && e.target.id === 'minusPerson') {
+    if (numberOfPeople < 2 && id === 'minusPerson') {
       return;
     }
 
-    e.target.id === 'plusPerson'
+    id === 'plusPerson'
       ? this.props.model.updateStoreData('numberOfPeople', numberOfPeople + 1)
       : this.props.model.updateStoreData('numberOfPeople', numberOfPeople - 1);
   };
@@ -59,6 +59,13 @@ class Sidebar extends React.Component {
     const showMenu = this.state.showMenu;
     const numberOfPeople = this.state.numberOfPeople;
 
+    const sidebarSubHeader = (
+      <div className="sidebar-sub-header">
+        <span>Dish Name</span>
+        <span>Cost</span>
+      </div>
+    );
+
     return (
       <div className={showMenu ? 'sidebar col menu-open' : 'sidebar col'}>
         <SidebarHeader
@@ -70,15 +77,12 @@ class Sidebar extends React.Component {
         <div className="sidebar-menu">
           <SidebarPeople
             numberOfPeople={numberOfPeople}
-            onChangeNumberOfPeople={this.onChangeNumberOfPeople}
+            onNumberOfPeopleChanged={this.onNumberOfPeopleChanged}
             arrowUp={faAngleUp}
             arrowDown={faAngleDown}
           />
 
-          <div className="sidebar-sub-header">
-            <span>Dish Name</span>
-            <span>Cost</span>
-          </div>
+          {sidebarSubHeader}
 
           <ul id="selectedDishes" />
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
-import { modelInstance } from '../../data/DinnerModel';
+import {kebabCase} from '../../Utils';
 
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
@@ -15,39 +16,67 @@ class Dishes extends React.Component {
       isToggleOn: true,
       status: 'INITIAL',
       itemsPerPage: 10,
-      offset: modelInstance.getStoreData('offset')
+      offset: this.props.model.getStoreData('offset'),
+      searchCondition: this.props.model.getStoreData('searchCondition'),
     };
   }
 
-  callAPI = params => {
-    modelInstance
-      .getAllDishes(params)
+  componentDidMount() {
+    this.props.model.addObserver(this);
+
+    this.setState({isMounted: !this.state.isMounted});
+
+    // kwd and type should be added ......
+    this.callAPI(
+      this.state.searchCondition[0],
+      this.state.searchCondition[1],
+      this.state.offset,
+    );
+  }
+
+  componentWillUnmount() {
+    this.props.model.removeObserver(this);
+  }
+
+  update() {
+    this.setState(
+      state => ({
+        searchCondition: this.props.model.getStoreData('searchCondition'),
+        offset: this.props.model.getStoreData('offset'),
+      }),
+      () => {
+        this.callAPI(
+          this.state.searchCondition[0],
+          this.state.searchCondition[1],
+          this.state.offset,
+        );
+      },
+    );
+  }
+
+  callAPI = (type, kwd, offset) => {
+    this.props.model
+      .getAllDishes(type, kwd, offset)
       .then(dishes => {
         this.setState({
           status: 'LOADED',
           dishes: dishes.results,
-          baseUri: dishes.baseUri
+          baseUri: dishes.baseUri,
         });
       })
       .catch(() => {
         this.setState({
-          status: 'ERROR'
+          status: 'ERROR',
         });
       });
   };
 
-  componentDidMount() {
-    this.setState({ isMounted: !this.state.isMounted });
-    // kwd and type should be added ......
-    this.callAPI('offset=' + this.state.offset);
-  }
-
   handlePaginationButtons = e => {
+    e.preventDefault();
+
     if (this.state.isMounted !== true) {
       return;
     }
-
-    e.preventDefault();
 
     let stepSize;
     if (e.target.id === 'next') {
@@ -59,12 +88,16 @@ class Dishes extends React.Component {
     this.setState(
       state => ({
         offset: state.offset + stepSize,
-        status: 'INITIAL'
+        status: 'INITIAL',
       }),
       () => {
-        this.callAPI('offset=' + this.state.offset);
-        modelInstance.updateStoreData('offset', this.state.offset);
-      }
+        this.callAPI(
+          this.state.searchCondition[0],
+          this.state.searchCondition[1],
+          this.state.offset,
+        );
+        this.props.model.updateStoreData('offset', this.state.offset);
+      },
     );
   };
 
@@ -78,7 +111,7 @@ class Dishes extends React.Component {
         break;
       case 'LOADED':
         dishesList = this.state.dishes.map(dish => (
-          <Link to={'/dish/' + kebabCase(dish.title)} key={dish.id} href='/'>
+          <Link to={'/dish/' + kebabCase(dish.title)} key={dish.id} href="/">
             <img src={baseUri + dish.image} alt={dish.title} />
             <h3>{dish.title}</h3>
           </Link>
@@ -89,46 +122,42 @@ class Dishes extends React.Component {
         break;
     }
 
-    const paginationButtons =
-      this.state.offset === 0 ? (
-        <Button
-          className='next-button btn btn-orange'
-          id='next'
-          onClick={this.handlePaginationButtons}
-          text={'Show next ' + this.state.itemsPerPage + ' dishes'}
-        />
-      ) : (
-        <React.Fragment>
-          <Button
-            className='previous-button btn btn-orange'
-            id='previous'
-            onClick={this.handlePaginationButtons}
-            text={'Show previous ' + this.state.itemsPerPage + ' dishes'}
-          />
+    const nextButton = (
+      <Button
+        className="next-button btn btn-orange"
+        id="next"
+        onClick={this.handlePaginationButtons}
+        text={'Show next ' + this.state.itemsPerPage + ' dishes'}
+      />
+    );
 
-          <Button
-            className='next-button btn btn-orange'
-            id='next'
-            onClick={this.handlePaginationButtons}
-            text={'Show next ' + this.state.itemsPerPage + ' dishes'}
-          />
-        </React.Fragment>
-      );
+    const previousButton = (
+      <Button
+        className="previous-button btn btn-orange"
+        id="previous"
+        onClick={this.handlePaginationButtons}
+        text={'Show previous ' + this.state.itemsPerPage + ' dishes'}
+      />
+    );
 
     return (
-      <div className='dishes col'>
-        <div className='dish-items-container'>{dishesList}</div>
-
-        {paginationButtons}
+      <div className="dishes col">
+        <div className="dish-items-container">{dishesList}</div>
+        {this.state.offset === 0 ? (
+          nextButton
+        ) : (
+          <React.Fragment>
+            {previousButton}
+            {nextButton}
+          </React.Fragment>
+        )}
       </div>
     );
   }
 }
 
-const kebabCase = string =>
-  string
-    .replace(/([a-z])([A-Z])/g, '$1-$2')
-    .replace(/\s+/g, '-')
-    .toLowerCase();
+Dishes.propTypes = {
+  model: PropTypes.object,
+};
 
 export default Dishes;

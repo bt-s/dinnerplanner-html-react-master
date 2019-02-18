@@ -1,10 +1,62 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter, Route} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import App from './components/App/App';
+import {modelInstance} from './data/DinnerModel';
+
+import DinnerOverview from './components/DinnerOverview/DinnerOverview';
+import DinnerPrintout from './components/DinnerPrintout/DinnerPrintout';
+import SelectDish from './components/SelectDish/SelectDish';
+import Welcome from './components/Welcome/Welcome';
 
 import './styling/style.scss';
+
+class App extends React.Component {
+  componentDidMount() {
+    window.addEventListener(
+      'beforeunload',
+      modelInstance.bindToSelf(modelInstance.storeData),
+    );
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(
+      'beforeunload',
+      modelInstance.bindToSelf(modelInstance.storeData),
+    );
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <header>
+          <h1>{this.props.title}</h1>
+        </header>
+
+        <div className="page-container">
+          <Route exact path="/" component={Welcome} />
+          <Route
+            path="/search"
+            render={() => <SelectDish model={modelInstance} />}
+          />
+          <Route
+            path="/dinner-overview"
+            render={() => <DinnerOverview model={modelInstance} />}
+          />
+          <Route
+            path="/dinner-printout"
+            render={() => <DinnerPrintout model={modelInstance} />}
+          />
+        </div>
+      </React.Fragment>
+    );
+  }
+}
+
+App.propTypes = {
+  title: PropTypes.string,
+};
 
 const title = 'Dinner Planner';
 

@@ -15,13 +15,13 @@ function SidebarPeople(props) {
           <Button
             className="btn"
             id="plusPerson"
-            onClick={props.onChangeNumberOfPeople}
+            onClick={e => props.onNumberOfPeopleChanged('plusPerson')}
             text={<FontAwesomeIcon icon={props.arrowUp} />}
           />
           <Button
             className="btn"
             id="minusPerson"
-            onClick={props.onChangeNumberOfPeople}
+            onClick={e => props.onNumberOfPeopleChanged('minusPerson')}
             text={<FontAwesomeIcon icon={props.arrowDown} />}
           />
         </div>

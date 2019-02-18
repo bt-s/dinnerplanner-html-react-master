@@ -1,15 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
+import SidebarHeader from './SidebarHeader';
+import SidebarPeople from './SidebarPeople';
+
+import {
+  faAngleDown,
+  faAngleUp,
+  faBars,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      numberOfGuests: this.props.model.getStoreData('numberOfGuests')
+      numberOfPeople: this.props.model.getStoreData('numberOfPeople'),
+      showMenu: false,
     };
   }
 
@@ -23,38 +33,67 @@ class Sidebar extends React.Component {
 
   update() {
     this.setState({
-      numberOfGuests: this.props.model.getStoreData('numberOfGuests')
+      numberOfPeople: this.props.model.getStoreData('numberOfPeople'),
     });
   }
 
-  onNumberOfGuestsChanged = e => {
-    this.props.model.updateStoreData('numberOfGuests', +e.target.value);
+  onChangeNumberOfPeople = e => {
+    const numberOfPeople = this.state.numberOfPeople;
+
+    if (numberOfPeople < 2 && e.target.id === 'minusPerson') {
+      return;
+    }
+
+    e.target.id === 'plusPerson'
+      ? this.props.model.updateStoreData('numberOfPeople', numberOfPeople + 1)
+      : this.props.model.updateStoreData('numberOfPeople', numberOfPeople - 1);
+  };
+
+  onMenuToggle = e => {
+    this.setState({
+      showMenu: !this.state.showMenu,
+    });
   };
 
   render() {
-    const buttonText = 'Confirm dinner';
+    const showMenu = this.state.showMenu;
+    const numberOfPeople = this.state.numberOfPeople;
+
     return (
-      <div className='sidebar col'>
-        <h2>My Dinner</h2>
-        <p>
-          People:{' '}
-          <input
-            value={this.state.numberOfGuests}
-            onChange={this.onNumberOfGuestsChanged}
+      <div className={showMenu ? 'sidebar col menu-open' : 'sidebar col'}>
+        <SidebarHeader
+          onMenuToggle={this.onMenuToggle}
+          barsIcon={faBars}
+          timesIcon={faTimes}
+        />
+
+        <div className="sidebar-menu">
+          <SidebarPeople
+            numberOfPeople={numberOfPeople}
+            onChangeNumberOfPeople={this.onChangeNumberOfPeople}
+            arrowUp={faAngleUp}
+            arrowDown={faAngleDown}
           />
-          <br />
-          Total number of guests: {this.state.numberOfGuests}
-        </p>
-        <Link to='/dinner-overview'>
-          <Button text={buttonText} />
-        </Link>
+
+          <div className="sidebar-sub-header">
+            <span>Dish Name</span>
+            <span>Cost</span>
+          </div>
+
+          <ul id="selectedDishes" />
+
+          <div id="totalPrice" />
+          <Link to="/dinner-overview">
+            <Button text="Confirm Dinner" />
+          </Link>
+        </div>
       </div>
     );
   }
 }
 
 Sidebar.propTypes = {
-  model: PropTypes.object
+  model: PropTypes.object,
 };
 
 export default Sidebar;

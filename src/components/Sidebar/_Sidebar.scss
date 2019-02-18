@@ -15,4 +15,135 @@
   h2 {
     margin-top: $padding-xxs;
   }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &.menu-open {
+    .sidebar-menu {
+      display: flex;
+    }
+
+    .fa-bars {
+      display: none;
+    }
+
+    .fa-times {
+      display: block;
+    }
+  }
+}
+
+.people-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.people-selector-button {
+  border: 3px solid $black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: $padding-xs;
+  padding: 0 5px;
+  min-width: 50px;
+}
+
+.up-down-buttons {
+  display: flex;
+  flex-direction: column;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15px;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .btn {
+    padding: 0;
+  }
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    background: none;
+    border: none;
+  }
+
+  .fa-times,
+  .fa-bars {
+    font-size: 25px;
+    width: 25px;
+    height: 25px;
+  }
+
+  .fa-times {
+    display: none;
+  }
+
+  @include media-breakpoint(sm) {
+    .fa-times,
+    .fa-bars {
+      display: none;
+    }
+  }
+}
+
+.sidebar-menu {
+  display: none;
+  flex-direction: column;
+
+  @include media-breakpoint(sm) {
+    display: flex;
+  }
+
+  > button {
+    margin: $padding-sm 0 $padding-xs;
+  }
+}
+
+.sidebar-sub-header {
+  width: calc(100% + 30px);
+  margin-left: -15px;
+  border: 2px solid black;
+  border-right: none;
+  border-left: none;
+  margin-top: $padding-xs;
+  margin-bottom: $padding-xs;
+  background-color: $grey;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+  align-items: center;
+
+  span {
+    font-weight: 500;
+  }
+}
+
+#totalPrice {
+  align-self: end;
+  text-align: right;
+  width: 100%;
 }

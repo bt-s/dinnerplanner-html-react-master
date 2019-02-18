@@ -1,5 +1,11 @@
 const DEBUG_MODE = 0;
 
+const kebabCase = string =>
+  string
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/\s+/g, '-')
+    .toLowerCase();
+
 const print = (...info) => {
   if (DEBUG_MODE) {
     console.log(...info);
@@ -60,7 +66,7 @@ class StoreUtil {
           'type of',
           v,
           'does not match the locked type which is',
-          this.dbMap[k].type
+          this.dbMap[k].type,
         );
       }
     }
@@ -76,10 +82,10 @@ class StoreUtil {
           ? JSON.parse(input)
           : console.error(
               input,
-              "is not a string, can't be parsed to an object"
+              "is not a string, can't be parsed to an object",
             ),
       string: input =>
-        typeof input === 'object' ? JSON.stringify(input) : input.toString()
+        typeof input === 'object' ? JSON.stringify(input) : input.toString(),
     };
     if (!parser[newType]) {
       console.error("Can't parse to type", newType);
@@ -105,10 +111,10 @@ class StoreUtil {
     for (const key in this.dbMap) {
       localStorage.setItem(
         key,
-        this.typeParser(this.dbMap[key].value, 'string')
+        this.typeParser(this.dbMap[key].value, 'string'),
       );
     }
   }
 }
 
-export { StoreUtil, print };
+export {kebabCase, StoreUtil, print};

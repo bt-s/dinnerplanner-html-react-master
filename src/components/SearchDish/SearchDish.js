@@ -65,6 +65,7 @@ class SearchDish extends React.Component {
             <input
               className="keyword-input"
               type="text"
+              placeholder="Enter key word"
               value={this.state.keyword}
               onChange={this.onHandleInputChange}
             />

@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
-import {modelInstance} from '../../data/DinnerModel';
-
 import {kebabCase} from '../../Utils';
 
 import Button from '../Button/Button';
@@ -18,20 +16,47 @@ class Dishes extends React.Component {
       isToggleOn: true,
       status: 'INITIAL',
       itemsPerPage: 10,
-      offset: modelInstance.getStoreData('offset'),
+      offset: this.props.model.getStoreData('offset'),
+      searchCondition: this.props.model.getStoreData('searchCondition'),
     };
   }
 
   componentDidMount() {
+    this.props.model.addObserver(this);
+
     this.setState({isMounted: !this.state.isMounted});
 
     // kwd and type should be added ......
-    this.callAPI('offset=' + this.state.offset);
+    this.callAPI(
+      this.state.searchCondition[0],
+      this.state.searchCondition[1],
+      this.state.offset,
+    );
   }
 
-  callAPI = params => {
-    modelInstance
-      .getAllDishes(params)
+  componentWillUnmount() {
+    this.props.model.removeObserver(this);
+  }
+
+  update() {
+    this.setState(
+      state => ({
+        searchCondition: this.props.model.getStoreData('searchCondition'),
+        offset: this.props.model.getStoreData('offset'),
+      }),
+      () => {
+        this.callAPI(
+          this.state.searchCondition[0],
+          this.state.searchCondition[1],
+          this.state.offset,
+        );
+      },
+    );
+  }
+
+  callAPI = (type, kwd, offset) => {
+    this.props.model
+      .getAllDishes(type, kwd, offset)
       .then(dishes => {
         this.setState({
           status: 'LOADED',
@@ -66,8 +91,12 @@ class Dishes extends React.Component {
         status: 'INITIAL',
       }),
       () => {
-        this.callAPI('offset=' + this.state.offset);
-        modelInstance.updateStoreData('offset', this.state.offset);
+        this.callAPI(
+          this.state.searchCondition[0],
+          this.state.searchCondition[1],
+          this.state.offset,
+        );
+        this.props.model.updateStoreData('offset', this.state.offset);
       },
     );
   };

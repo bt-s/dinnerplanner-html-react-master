@@ -10,7 +10,7 @@ const SelectDish = props => {
     <div className="select-dish col">
       <Sidebar model={props.model} />
       <div className="dish-search-container">
-        <SearchDish />
+        <SearchDish model={props.model} />
         <Dishes model={props.model} />
       </div>
     </div>

@@ -6,6 +6,13 @@ const kebabCase = string =>
     .replace(/\s+/g, '-')
     .toLowerCase();
 
+const titalizeWords = words => {
+  return words
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
 const print = (...info) => {
   if (DEBUG_MODE) {
     console.log(...info);
@@ -117,4 +124,4 @@ class StoreUtil {
   }
 }
 
-export {kebabCase, StoreUtil, print};
+export {kebabCase, titalizeWords, StoreUtil, print};

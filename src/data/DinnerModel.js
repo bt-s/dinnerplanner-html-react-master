@@ -21,6 +21,22 @@ class DinnerModel {
     if (readLocal) {
       this._storeAgent.load();
     }
+
+    this.dishTypes = [
+      'main course',
+      'side dish',
+      'dessert',
+      'appetizer',
+      'salad',
+      'bread',
+      'breakfast',
+      'soup',
+      'beverage',
+      'sauce',
+      'drink',
+    ];
+
+    this.searchCondition = ['', '', 0];
   }
 
   bindToSelf(func) {
@@ -38,6 +54,7 @@ class DinnerModel {
         this.notifyObservers();
         break;
       case 'searchCondition':
+        this.notifyObservers();
         break;
       case 'selectedDishes':
         break;
@@ -54,10 +71,16 @@ class DinnerModel {
   }
 
   // API Calls
-  getAllDishes(params) {
+  getAllDishes(type, kwd, offset) {
+    let params = new URLSearchParams();
+    if (type) params.append('type', type);
+    if (kwd) params.append('query', kwd);
+    params.append('offset', offset);
+
     const url =
       'http://sunset.nada.kth.se:8080/iprog/group/30/recipes/search?' +
       params.toString();
+
     return fetch(url, httpOptions)
       .then(this.processResponse)
       .catch(this.handleError);
@@ -92,6 +115,16 @@ class DinnerModel {
 
   notifyObservers() {
     this._observers.forEach(o => o.update());
+  }
+
+  getDishTypes() {
+    return [...new Set(this.dishTypes)];
+  }
+
+  setSearchCondition(type, kwd, offset) {
+    this.searchCondition[0] = type;
+    this.searchCondition[1] = kwd;
+    this.searchCondition[2] = parseInt(offset);
   }
 }
 

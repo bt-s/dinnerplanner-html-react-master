@@ -11,7 +11,7 @@ const SelectDish = props => {
       <Sidebar model={props.model} />
       <div className="dish-search-container">
         <SearchDish />
-        <Dishes />
+        <Dishes model={props.model} />
       </div>
     </div>
   );

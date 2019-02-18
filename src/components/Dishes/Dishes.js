@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
 import {modelInstance} from '../../data/DinnerModel';
@@ -21,6 +22,13 @@ class Dishes extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({isMounted: !this.state.isMounted});
+
+    // kwd and type should be added ......
+    this.callAPI('offset=' + this.state.offset);
+  }
+
   callAPI = params => {
     modelInstance
       .getAllDishes(params)
@@ -38,18 +46,12 @@ class Dishes extends React.Component {
       });
   };
 
-  componentDidMount() {
-    this.setState({isMounted: !this.state.isMounted});
-    // kwd and type should be added ......
-    this.callAPI('offset=' + this.state.offset);
-  }
-
   handlePaginationButtons = e => {
+    e.preventDefault();
+
     if (this.state.isMounted !== true) {
       return;
     }
-
-    e.preventDefault();
 
     let stepSize;
     if (e.target.id === 'next') {
@@ -91,40 +93,42 @@ class Dishes extends React.Component {
         break;
     }
 
-    const paginationButtons =
-      this.state.offset === 0 ? (
-        <Button
-          className="next-button btn btn-orange"
-          id="next"
-          onClick={this.handlePaginationButtons}
-          text={'Show next ' + this.state.itemsPerPage + ' dishes'}
-        />
-      ) : (
-        <React.Fragment>
-          <Button
-            className="previous-button btn btn-orange"
-            id="previous"
-            onClick={this.handlePaginationButtons}
-            text={'Show previous ' + this.state.itemsPerPage + ' dishes'}
-          />
+    const nextButton = (
+      <Button
+        className="next-button btn btn-orange"
+        id="next"
+        onClick={this.handlePaginationButtons}
+        text={'Show next ' + this.state.itemsPerPage + ' dishes'}
+      />
+    );
 
-          <Button
-            className="next-button btn btn-orange"
-            id="next"
-            onClick={this.handlePaginationButtons}
-            text={'Show next ' + this.state.itemsPerPage + ' dishes'}
-          />
-        </React.Fragment>
-      );
+    const previousButton = (
+      <Button
+        className="previous-button btn btn-orange"
+        id="previous"
+        onClick={this.handlePaginationButtons}
+        text={'Show previous ' + this.state.itemsPerPage + ' dishes'}
+      />
+    );
 
     return (
       <div className="dishes col">
         <div className="dish-items-container">{dishesList}</div>
-
-        {paginationButtons}
+        {this.state.offset === 0 ? (
+          nextButton
+        ) : (
+          <React.Fragment>
+            {previousButton}
+            {nextButton}
+          </React.Fragment>
+        )}
       </div>
     );
   }
 }
+
+Dishes.propTypes = {
+  model: PropTypes.object,
+};
 
 export default Dishes;

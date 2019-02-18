@@ -35,6 +35,7 @@ class DinnerModel {
         this.notifyObservers();
         break;
       case 'offset':
+        this.notifyObservers();
         break;
       case 'searchCondition':
         break;

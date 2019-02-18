@@ -37,7 +37,7 @@ class Sidebar extends React.Component {
     });
   }
 
-  onChangeNumberOfPeople = e => {
+  onNumberOfPeopleChanged = e => {
     const numberOfPeople = this.state.numberOfPeople;
 
     if (numberOfPeople < 2 && e.target.id === 'minusPerson') {
@@ -77,7 +77,7 @@ class Sidebar extends React.Component {
         <div className="sidebar-menu">
           <SidebarPeople
             numberOfPeople={numberOfPeople}
-            onChangeNumberOfPeople={this.onChangeNumberOfPeople}
+            onNumberOfPeopleChanged={this.onNumberOfPeopleChanged}
             arrowUp={faAngleUp}
             arrowDown={faAngleDown}
           />

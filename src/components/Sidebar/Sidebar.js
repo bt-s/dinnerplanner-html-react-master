@@ -37,14 +37,15 @@ class Sidebar extends React.Component {
     });
   }
 
-  onNumberOfPeopleChanged = e => {
+  onNumberOfPeopleChanged = id => {
     const numberOfPeople = this.state.numberOfPeople;
+    console.log(id);
 
-    if (numberOfPeople < 2 && e.target.id === 'minusPerson') {
+    if (numberOfPeople < 2 && id === 'minusPerson') {
       return;
     }
 
-    e.target.id === 'plusPerson'
+    id === 'plusPerson'
       ? this.props.model.updateStoreData('numberOfPeople', numberOfPeople + 1)
       : this.props.model.updateStoreData('numberOfPeople', numberOfPeople - 1);
   };

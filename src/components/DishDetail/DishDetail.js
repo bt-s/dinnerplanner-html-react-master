@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Sidebar from '../Sidebar/Sidebar';
-import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
 
 class DishDetail extends React.Component {
@@ -13,7 +12,7 @@ class DishDetail extends React.Component {
     this.state = {
       hasData: false,
       numberOfPeople: this.props.model.getStoreData('numberOfPeople'),
-      selectedDishes: [],
+      selectedDishes: []
     };
     props.model.requestRecipeInfo(this.dishID).then(() => {
       this.setState({hasData: true});
@@ -29,7 +28,7 @@ class DishDetail extends React.Component {
 
   update() {
     this.setState({
-      numberOfPeople: this.props.model.getStoreData('numberOfPeople'),
+      numberOfPeople: this.props.model.getStoreData('numberOfPeople')
     });
   }
 
@@ -79,8 +78,7 @@ class DishDetail extends React.Component {
               <Link
                 to="/search"
                 id="backToSearchButton"
-                className="btn btn-orange btn-pointy"
-              >
+                className="btn btn-orange btn-pointy">
                 back to search
               </Link>
             </div>
@@ -101,8 +99,7 @@ class DishDetail extends React.Component {
                   className="btn btn-orange"
                   onClick={e => {
                     this.props.model.addDishToMenu(this.dishID);
-                  }}
-                >
+                  }}>
                   Add to menu
                 </button>
               </div>
@@ -119,7 +116,7 @@ class DishDetail extends React.Component {
 }
 
 DishDetail.propTypes = {
-  model: PropTypes.object,
+  model: PropTypes.object
 };
 
 export default DishDetail;

@@ -32,7 +32,13 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <header>
-          <h1>{this.props.title}</h1>
+          <h1
+            onClick={e => {
+              window.location.assign('/');
+            }}
+          >
+            {this.props.title}
+          </h1>
         </header>
 
         <div className="page-container">

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
 
-function DishIngredients(props) {
+const DishIngredients = props => {
   const viewingDish = props.model.getViewingDish();
 
   const ingredientList = viewingDish.extendedIngredients.map(
@@ -38,7 +38,7 @@ function DishIngredients(props) {
       <span className="total-price">TOTAL: {totalPrice} SEK</span>
     </div>
   );
-}
+};
 
 DishIngredients.propTypes = {
   dishId: PropTypes.number,

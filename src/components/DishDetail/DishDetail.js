@@ -62,17 +62,11 @@ class DishDetail extends React.Component {
 
     return (
       <div className="dish-detail-container">
-        <div className="dish-details-overview">
-          <div className="dish-description-wrapper">
-            <div id="dishDescription" className="dish-description">
-              <h2 id="dishTitle">{viewingDish.title}</h2>
-              <img
-                id="detailImg"
-                src={viewingDish.image}
-                alt={viewingDish.title}
-              />
-              <p id="detailDescription">{viewingDish.instructions}</p>
-            </div>
+        <section className="dish-details-overview">
+          <div className="dish-description">
+            <h2>{viewingDish.title}</h2>
+            <img src={viewingDish.image} alt={viewingDish.title} />
+            <p>{viewingDish.instructions}</p>
             <Link
               to="/search"
               id="backToSearchButton"
@@ -83,12 +77,10 @@ class DishDetail extends React.Component {
 
           <div className="dish-ingredients">
             <div className="dish-ingredients-heading">
-              <span>Ingredients For </span>
-              <span id="numberOfGuests">{this.state.numberOfPeople}</span>
-              <span> People</span>
+              Ingredients For {this.state.numberOfPeople} People
             </div>
             <hr />
-            <table id="listOfIngredients">
+            <table>
               <tbody>{ingredientList}</tbody>
             </table>
             <hr />
@@ -100,10 +92,10 @@ class DishDetail extends React.Component {
             />
             <span className="total-price">TOTAL: {totalPrice} SEK</span>
           </div>
-        </div>
-        <section id="prepSection">
+        </section>
+        <section>
           <h2>Preparation</h2>
-          <p id="prepText">{viewingDish.instructions}</p>
+          <p>{viewingDish.instructions}</p>
         </section>
       </div>
     );

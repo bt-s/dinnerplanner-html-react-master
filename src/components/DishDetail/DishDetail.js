@@ -9,14 +9,14 @@ class DishDetail extends React.Component {
   constructor(props) {
     super(props);
 
-    this.dishID = parseInt(window.location.pathname.substr(6));
+    this.dishId = parseInt(window.location.pathname.substr(6));
 
     this.state = {
       hasData: false,
       numberOfPeople: this.props.model.getStoreData('numberOfPeople')
     };
 
-    props.model.requestRecipeInfo(this.dishID).then(() => {
+    props.model.requestRecipeInfo(this.dishId).then(() => {
       this.setState({hasData: true});
     });
   }

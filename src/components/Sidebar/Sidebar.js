@@ -82,7 +82,7 @@ class Sidebar extends React.Component {
             a.hasOwnProperty('pricePerServing') ? a.pricePerServing : a
           ) + parseFloat(b.pricePerServing)
         ).toFixed(2);
-      });
+      }, 0);
 
     return (
       <div className={showMenu ? 'sidebar col menu-open' : 'sidebar col'}>

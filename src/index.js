@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {modelInstance} from './data/DinnerModel';
@@ -36,23 +36,25 @@ class App extends React.Component {
         </header>
 
         <div className="page-container">
-          <Route exact path="/" component={Welcome} />
-          <Route
-            path="/dish/:id"
-            render={() => <DishDetail model={modelInstance} />}
-          />
-          <Route
-            path="/search"
-            render={() => <SelectDish model={modelInstance} />}
-          />
-          <Route
-            path="/dinner-overview"
-            render={() => <DinnerOverview model={modelInstance} />}
-          />
-          <Route
-            path="/dinner-printout"
-            render={() => <DinnerPrintout model={modelInstance} />}
-          />
+          <Switch>
+            <Route exact path="/" component={Welcome} />
+            <Route
+              path="/dish/:id"
+              render={() => <DishDetail model={modelInstance} />}
+            />
+            <Route
+              path="/search"
+              render={() => <SelectDish model={modelInstance} />}
+            />
+            <Route
+              path="/dinner-overview"
+              render={() => <DinnerOverview model={modelInstance} />}
+            />
+            <Route
+              path="/dinner-printout"
+              render={() => <DinnerPrintout model={modelInstance} />}
+            />
+          </Switch>
         </div>
       </React.Fragment>
     );
@@ -60,7 +62,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string
 };
 
 const title = 'Dinner Planner';

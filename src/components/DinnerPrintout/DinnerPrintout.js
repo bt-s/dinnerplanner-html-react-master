@@ -6,14 +6,27 @@ import TitleBar from '../TitleBar/TitleBar';
 
 class DinnerPrintout extends React.Component {
   render() {
+    let printList = this.props.model
+      .getStoreData('selectedDishes')
+      .map(dish => (
+        <li class="printout-dish">
+          <img src={dish.image} alt="" />
+          <section>
+            <h2>{dish.title}</h2>
+            <p>{dish.instructions}</p>
+          </section>
+          <section>
+            <h3>Preparation</h3>
+            <p>{dish.instructions}</p>
+          </section>
+        </li>
+      ));
+
     return (
       <div>
         <TitleBar model={this.props.model} />
         <div className="dinner-printout col">
-          <h2>This is the Dinner Printout screen</h2>
-
-          {/* We pass the model as property to the Sidebar component */}
-          <Sidebar model={this.props.model} />
+          <ul className="printout-dishes">{printList}</ul>
         </div>
       </div>
     );

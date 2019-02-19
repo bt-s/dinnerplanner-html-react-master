@@ -76,13 +76,13 @@ class Sidebar extends React.Component {
 
     const totalPrice =
       numberOfPeople *
-      dishes.reduce((a, b) => {
+      dishes.reduce((acc, cur) => {
         return (
           parseFloat(
-            a.hasOwnProperty('pricePerServing') ? a.pricePerServing : a
-          ) + parseFloat(b.pricePerServing)
+            acc.hasOwnProperty('pricePerServing') ? acc.pricePerServing : acc
+          ) + parseFloat(cur.pricePerServing)
         ).toFixed(2);
-      });
+      }, 0);
 
     return (
       <div className={showMenu ? 'sidebar col menu-open' : 'sidebar col'}>

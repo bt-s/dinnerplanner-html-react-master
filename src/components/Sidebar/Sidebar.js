@@ -74,6 +74,16 @@ class Sidebar extends React.Component {
       </div>
     );
 
+    const totalPrice =
+      numberOfPeople *
+      dishes.reduce((a, b) => {
+        return (
+          parseFloat(
+            a.hasOwnProperty('pricePerServing') ? a.pricePerServing : a
+          ) + parseFloat(b.pricePerServing)
+        ).toFixed(2);
+      });
+
     return (
       <div className={showMenu ? 'sidebar col menu-open' : 'sidebar col'}>
         <SidebarHeader
@@ -89,9 +99,13 @@ class Sidebar extends React.Component {
             arrowUp={faAngleUp}
             arrowDown={faAngleDown}
           />
+
           {sidebarSubHeader}
-          <ul id="selectedDishes">{dishList}</ul>
-          <div id="totalPrice" />
+
+          <ul>{dishList}</ul>
+
+          <div>TOTAL: {totalPrice} SEK</div>
+
           <Link to="/dinner-overview">
             <Button text="Confirm Dinner" />
           </Link>

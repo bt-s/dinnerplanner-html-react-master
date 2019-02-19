@@ -2,9 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import {computeTotalPrice} from '../../Utils';
-
-import Button from '../Button/Button';
 import SidebarHeader from './SidebarHeader';
 import SidebarPeople from './SidebarPeople';
 import SidebarSelectedDishes from './SidebarSelectedDishes';

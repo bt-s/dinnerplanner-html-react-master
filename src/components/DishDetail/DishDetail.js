@@ -1,24 +1,26 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import Sidebar from '../Sidebar/Sidebar';
-import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
+import DishDescription from './DishDescription';
+import DishIngredients from './DishIngredients';
 
 class DishDetail extends React.Component {
   constructor(props) {
     super(props);
-    this.dishID = parseInt(window.location.pathname.substr(6)); // /dish/id
+
+    this.dishId = parseInt(window.location.pathname.substr(6));
+
     this.state = {
       hasData: false,
-      numberOfPeople: this.props.model.getStoreData('numberOfPeople'),
-      selectedDishes: [],
+      numberOfPeople: this.props.model.getStoreData('numberOfPeople')
     };
-    props.model.requestRecipeInfo(this.dishID).then(() => {
+
+    props.model.requestRecipeInfo(this.dishId).then(() => {
       this.setState({hasData: true});
     });
   }
+
   componentDidMount() {
     this.props.model.addObserver(this);
   }
@@ -29,7 +31,7 @@ class DishDetail extends React.Component {
 
   update() {
     this.setState({
-      numberOfPeople: this.props.model.getStoreData('numberOfPeople'),
+      numberOfPeople: this.props.model.getStoreData('numberOfPeople')
     });
   }
 
@@ -37,90 +39,31 @@ class DishDetail extends React.Component {
     if (!this.state.hasData) {
       return <Loader />;
     }
-    const viewingDish = this.props.model.getViewingDish();
-    const totalPrice =
-      'TOTAL: ' +
-      this.state.numberOfPeople *
-        this.props.model.getStoreData('selectedDishes').reduce((a, b) => {
-          return (
-            parseFloat(
-              a.hasOwnProperty('pricePerServing') ? a.pricePerServing : a
-            ) + parseFloat(b.pricePerServing)
-          ).toFixed(2);
-        }) +
-      ' SEK';
-    let ingredientList = [];
-    viewingDish.extendedIngredients.forEach(ingredient => {
-      let tableItem = (
-        <tr>
-          <td>
-            {ingredient.amount + ' ' + ingredient.measures.metric.unitShort}
-          </td>
-          <td>{ingredient.name}</td>
-        </tr>
-      );
-      ingredientList.push(tableItem);
-    });
+
+    const model = this.props.model;
+    const viewingDish = model.getViewingDish();
 
     return (
-      <div className="dish-detail-page">
-        <Sidebar model={this.props.model} />
-        <div className="dish-detail-container">
-          <div className="dish-details-overview">
-            <div className="dish-description-wrapper">
-              <div id="dishDescription" className="dish-description">
-                <h2 id="dishTitle">{viewingDish.title}</h2>
-                <img
-                  id="detailImg"
-                  src={viewingDish.image}
-                  alt={viewingDish.title}
-                />
-                <p id="detailDescription">{viewingDish.instructions}</p>
-              </div>
-              <Link
-                to="/search"
-                id="backToSearchButton"
-                className="btn btn-orange btn-pointy"
-              >
-                back to search
-              </Link>
-            </div>
-
-            <div className="dish-ingredients">
-              <div className="dish-ingredients-heading">
-                <span>Ingredients For </span>
-                <span id="numberOfGuests">{this.state.numberOfPeople}</span>
-                <span> People</span>
-              </div>
-              <hr />
-              <table id="listOfIngredients">{ingredientList}</table>
-              <hr />
-              <div id="ingredientTotal">
-                <span id="dishPrice">{totalPrice}</span>
-                <button
-                  id="addToMenuButton"
-                  className="btn btn-orange"
-                  onClick={e => {
-                    this.props.model.addDishToMenu(this.dishID);
-                  }}
-                >
-                  Add to menu
-                </button>
-              </div>
-            </div>
-          </div>
-          <section id="prepSection">
-            <h2>Preparation</h2>
-            <p id="prepText">{viewingDish.instructions}</p>
-          </section>
-        </div>
+      <div className="dish-detail-container">
+        <section className="dish-details-overview">
+          <DishDescription model={model} />
+          <DishIngredients
+            dishId={this.dishId}
+            model={model}
+            numberOfPeople={this.state.numberOfPeople}
+          />
+        </section>
+        <section>
+          <h2>Preparation</h2>
+          <p>{viewingDish.instructions}</p>
+        </section>
       </div>
     );
   }
 }
 
 DishDetail.propTypes = {
-  model: PropTypes.object,
+  model: PropTypes.object
 };
 
 export default DishDetail;

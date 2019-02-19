@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {Router, Route} from 'react-router';
-
-import {kebabCase} from '../../Utils';
 
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
-import DishDetail from '../DishDetail/DishDetail';
 
 class Dishes extends React.Component {
   constructor(props) {
@@ -19,7 +15,7 @@ class Dishes extends React.Component {
       status: 'INITIAL',
       itemsPerPage: 10,
       offset: this.props.model.getStoreData('offset'),
-      searchCondition: this.props.model.getStoreData('searchCondition'),
+      searchCondition: this.props.model.getStoreData('searchCondition')
     };
   }
 
@@ -44,7 +40,7 @@ class Dishes extends React.Component {
     this.setState(
       state => ({
         searchCondition: this.props.model.getStoreData('searchCondition'),
-        offset: this.props.model.getStoreData('offset'),
+        offset: this.props.model.getStoreData('offset')
       }),
       () => {
         this.callAPI(
@@ -63,12 +59,12 @@ class Dishes extends React.Component {
         this.setState({
           status: 'LOADED',
           dishes: dishes.results,
-          baseUri: dishes.baseUri,
+          baseUri: dishes.baseUri
         });
       })
       .catch(() => {
         this.setState({
-          status: 'ERROR',
+          status: 'ERROR'
         });
       });
   };
@@ -90,7 +86,7 @@ class Dishes extends React.Component {
     this.setState(
       state => ({
         offset: state.offset + stepSize,
-        status: 'INITIAL',
+        status: 'INITIAL'
       }),
       () => {
         this.callAPI(
@@ -159,7 +155,7 @@ class Dishes extends React.Component {
 }
 
 Dishes.propTypes = {
-  model: PropTypes.object,
+  model: PropTypes.object
 };
 
 export default Dishes;

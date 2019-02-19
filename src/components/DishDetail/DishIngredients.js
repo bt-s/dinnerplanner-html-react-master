@@ -31,11 +31,13 @@ const DishIngredients = props => {
         <tbody>{ingredientList}</tbody>
       </table>
       <hr />
-      <Button
-        onClick={e => props.model.addDishToMenu(props.dishId)}
-        text="Add to menu"
-      />
-      <span className="total-price">TOTAL: {totalPrice} SEK</span>
+      <div className="ingredient-total">
+        <Button
+          onClick={e => props.model.addDishToMenu(props.dishId)}
+          text="Add to menu"
+        />
+        <span className="total-price">TOTAL: {totalPrice} SEK</span>
+      </div>
     </div>
   );
 };

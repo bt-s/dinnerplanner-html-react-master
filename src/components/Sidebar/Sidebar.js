@@ -2,11 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import {computeTotalPrice} from '../../Utils';
-
-import Button from '../Button/Button';
 import SidebarHeader from './SidebarHeader';
 import SidebarPeople from './SidebarPeople';
+import SidebarSelectedDishes from './SidebarSelectedDishes';
 
 import {
   faAngleDown,
@@ -62,22 +60,6 @@ class Sidebar extends React.Component {
     const numberOfPeople = this.state.numberOfPeople;
     const dishes = this.props.model.getStoreData('selectedDishes');
 
-    const dishList = dishes.map((dish, i) => (
-      <li key={i}>
-        <span>{dish.title}</span>
-        <span>{dish.pricePerServing}</span>
-      </li>
-    ));
-
-    const sidebarSubHeader = (
-      <div className="sidebar-sub-header">
-        <span>Dish Name</span>
-        <span>Cost</span>
-      </div>
-    );
-
-    const totalPrice = computeTotalPrice(numberOfPeople, dishes);
-
     return (
       <div className={showMenu ? 'sidebar col menu-open' : 'sidebar col'}>
         <SidebarHeader
@@ -94,14 +76,13 @@ class Sidebar extends React.Component {
             arrowDown={faAngleDown}
           />
 
-          {sidebarSubHeader}
+          <SidebarSelectedDishes
+            dishes={dishes}
+            numberOfPeople={numberOfPeople}
+          />
 
-          <ul>{dishList}</ul>
-
-          <div>TOTAL: {totalPrice} SEK</div>
-
-          <Link to="/dinner-overview">
-            <Button text="Confirm Dinner" />
+          <Link to="/dinner-overview" className="btn btn-orange">
+            Confirm Dinner
           </Link>
         </div>
       </div>

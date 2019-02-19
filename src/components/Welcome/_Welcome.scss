@@ -8,6 +8,7 @@
     margin: $padding-sm;
     flex: 1 0 auto;
     text-align: center;
+    white-space: pre-wrap;
 
     @include media-breakpoint(sm) {
       margin: $padding-lg;

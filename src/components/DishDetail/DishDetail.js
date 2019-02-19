@@ -41,6 +41,7 @@ class DishDetail extends React.Component {
     }
 
     const model = this.props.model;
+    const numberOfPeople = this.state.numberOfPeople;
     const viewingDish = model.getViewingDish();
 
     return (
@@ -50,7 +51,7 @@ class DishDetail extends React.Component {
           <DishIngredients
             dishId={this.dishId}
             model={model}
-            numberOfPeople={this.state.numberOfPeople}
+            numberOfPeople={numberOfPeople}
           />
         </section>
         <section>

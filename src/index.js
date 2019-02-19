@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 
 import {modelInstance} from './data/DinnerModel';
 
-import DinnerOverview from './components/DinnerOverview/DinnerOverview';
-import DinnerPrintout from './components/DinnerPrintout/DinnerPrintout';
-import SelectDish from './components/SelectDish/SelectDish';
-import Welcome from './components/Welcome/Welcome';
-import DishDetailPage from './components/DishDetail/DishDetailPage';
+import DinnerOverviewScreen from './components/DinnerOverview/DinnerOverviewScreen';
+import DinnerPrintoutScreen from './components/DinnerPrintout/DinnerPrintoutScreen';
+import DishDetailScreen from './components/DishDetail/DishDetailScreen';
+import SearchDishesScreen from './components/SearchDishes/SearchDishesScreen';
+import WelcomeScreen from './components/Welcome/WelcomeScreen';
 
 import './styling/style.scss';
 
@@ -35,30 +35,29 @@ class App extends React.Component {
           <h1
             onClick={e => {
               window.location.assign('/');
-            }}
-          >
+            }}>
             {this.props.title}
           </h1>
         </header>
 
         <div className="page-container">
           <Switch>
-            <Route exact path="/" component={Welcome} />
+            <Route exact path="/" render={() => <WelcomeScreen />} />
             <Route
               path="/dish/:id"
-              render={() => <DishDetailPage model={modelInstance} />}
+              render={() => <DishDetailScreen model={modelInstance} />}
             />
             <Route
               path="/search"
-              render={() => <SelectDish model={modelInstance} />}
+              render={() => <SearchDishesScreen model={modelInstance} />}
             />
             <Route
               path="/dinner-overview"
-              render={() => <DinnerOverview model={modelInstance} />}
+              render={() => <DinnerOverviewScreen model={modelInstance} />}
             />
             <Route
               path="/dinner-printout"
-              render={() => <DinnerPrintout model={modelInstance} />}
+              render={() => <DinnerPrintoutScreen model={modelInstance} />}
             />
           </Switch>
         </div>
@@ -71,11 +70,9 @@ App.propTypes = {
   title: PropTypes.string
 };
 
-const title = 'Dinner Planner';
-
 ReactDOM.render(
   <BrowserRouter>
-    <App title={title} />
+    <App title="Dinner Planner" />
   </BrowserRouter>,
   document.getElementById('root')
 );

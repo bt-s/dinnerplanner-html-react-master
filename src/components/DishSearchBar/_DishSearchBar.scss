@@ -15,6 +15,11 @@
 
   .search-bar-container {
     margin-bottom: $padding-xs;
+
+    input,
+    select {
+      font-size: 15px;
+    }
   }
 }
 

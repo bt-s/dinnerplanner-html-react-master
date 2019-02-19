@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
 
-class Dishes extends React.Component {
+class DishesItems extends React.Component {
   constructor(props) {
     super(props);
 
@@ -154,8 +154,8 @@ class Dishes extends React.Component {
   }
 }
 
-Dishes.propTypes = {
+DishesItems.propTypes = {
   model: PropTypes.object
 };
 
-export default Dishes;
+export default DishesItems;

@@ -11,6 +11,10 @@ body {
   font-family: sans-serif;
 }
 
+header {
+  cursor: pointer;
+}
+
 h1 {
   background: $grey;
   border-bottom: 4px solid $grey-darker;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import TitleBar from '../TitleBar/TitleBar';
 
-const DinnerPrintout = props => {
+const DinnerPrintoutScreen = props => {
   let printList = props.model.getStoreData('selectedDishes').map((dish, i) => (
     <li className="printout-dish" key={i}>
       <img src={dish.image} alt="" />
@@ -28,8 +28,8 @@ const DinnerPrintout = props => {
   );
 };
 
-DinnerPrintout.propTypes = {
+DinnerPrintoutScreen.propTypes = {
   model: PropTypes.object
 };
 
-export default DinnerPrintout;
+export default DinnerPrintoutScreen;

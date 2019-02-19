@@ -19,6 +19,7 @@ class DinnerModel {
 
   constructor(num = 1, readLocal = true) {
     this.updateStoreData('numberOfPeople', num);
+
     if (readLocal) {
       this._storeAgent.load();
     }
@@ -46,7 +47,7 @@ class DinnerModel {
 
   updateStoreData(key, value) {
     this._storeAgent.update(key, value);
-    // notify observers
+
     switch (key) {
       case 'numberOfPeople':
         this.notifyObservers();
@@ -58,12 +59,13 @@ class DinnerModel {
         this.notifyObservers();
         break;
       case 'selectedDishes':
-        this.notifyObservers('selectedDishes');
+        this.notifyObservers();
         break;
       default:
         break;
     }
   }
+
   getStoreData(key) {
     return this._storeAgent.get(key);
   }
@@ -74,9 +76,11 @@ class DinnerModel {
 
   URLWithParams(url, params) {
     let urlParams = new URLSearchParams();
+
     for (let key in params) {
       urlParams.append(key, params[key]);
     }
+
     return url + '?' + urlParams.toString();
   }
 
@@ -86,11 +90,13 @@ class DinnerModel {
 
   addDishToMenu(id) {
     let dishes = this.getStoreData('selectedDishes');
+
     for (let i = 0; i < dishes.length; i++) {
       if (dishes[i].id === id) {
         return;
       }
     }
+
     dishes.push(this._storedDishes[id]);
     this.updateStoreData('selectedDishes', dishes);
   }
@@ -98,6 +104,7 @@ class DinnerModel {
   requestRecipeInfo(dishID) {
     const APIRecipeInfo =
       'http://sunset.nada.kth.se:8080/iprog/group/30/recipes/{id}/information';
+
     const url = this.URLWithParams(APIRecipeInfo.replace('{id}', dishID), {
       id: dishID,
       includeNutrition: false
@@ -125,7 +132,6 @@ class DinnerModel {
       });
   }
 
-  // API Calls
   getAllDishes(type, kwd, offset) {
     let params = new URLSearchParams();
     if (type) params.append('type', type);
@@ -141,11 +147,11 @@ class DinnerModel {
       .catch(this.handleError);
   }
 
-  // API Helper methods
   processResponse(response) {
     if (response.ok) {
       return response.json();
     }
+
     throw response;
   }
 
@@ -159,7 +165,6 @@ class DinnerModel {
     }
   }
 
-  // Observer pattern
   addObserver(observer) {
     this._observers.push(observer);
   }

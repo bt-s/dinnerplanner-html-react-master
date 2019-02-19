@@ -95,7 +95,9 @@ class DishDetail extends React.Component {
                 <span> People</span>
               </div>
               <hr />
-              <table id="listOfIngredients">{ingredientList}</table>
+              <table id="listOfIngredients">
+                <tbody>{ingredientList}</tbody>
+              </table>
               <hr />
               <div id="ingredientTotal">
                 <span id="dishPrice">{totalPrice}</span>

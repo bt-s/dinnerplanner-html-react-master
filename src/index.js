@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {modelInstance} from './data/DinnerModel';
@@ -32,7 +32,13 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <header>
-          <h1>{this.props.title}</h1>
+          <h1
+            onClick={e => {
+              window.location.assign('/');
+            }}
+          >
+            {this.props.title}
+          </h1>
         </header>
 
         <div className="page-container">

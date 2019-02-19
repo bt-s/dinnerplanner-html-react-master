@@ -1,3 +1,19 @@
+#header {
+  background: $grey;
+  border-bottom: 4px solid $grey-darker;
+  color: $black;
+  text-align: center;
+  padding: $padding-xs;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+
+  @include media-breakpoint(sm) {
+    font-size: 40px;
+    padding: $padding-md;
+  }
+}
+
 .title-bar {
   display: flex;
   flex-direction: column;

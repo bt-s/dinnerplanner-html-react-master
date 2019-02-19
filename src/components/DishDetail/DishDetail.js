@@ -61,6 +61,7 @@ class DishDetail extends React.Component {
       );
       ingredientList.push(tableItem);
     });
+
     return (
       <div className="dish-detail-page">
         <Sidebar model={this.props.model} />

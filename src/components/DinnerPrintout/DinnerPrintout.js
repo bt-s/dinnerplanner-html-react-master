@@ -2,15 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Sidebar from '../Sidebar/Sidebar';
+import TitleBar from '../TitleBar/TitleBar';
 
 class DinnerPrintout extends React.Component {
   render() {
     return (
-      <div className="dinner-printout col">
-        <h2>This is the Dinner Printout screen</h2>
+      <div>
+        <TitleBar model={this.props.model} />
+        <div className="dinner-printout col">
+          <h2>This is the Dinner Printout screen</h2>
 
-        {/* We pass the model as property to the Sidebar component */}
-        <Sidebar model={this.props.model} />
+          {/* We pass the model as property to the Sidebar component */}
+          <Sidebar model={this.props.model} />
+        </div>
       </div>
     );
   }

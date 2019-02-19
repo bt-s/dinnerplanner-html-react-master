@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
 
 class DishDetail extends React.Component {
@@ -87,7 +88,7 @@ class DishDetail extends React.Component {
               to="/search"
               id="backToSearchButton"
               className="btn btn-orange btn-pointy">
-              back to search
+              Back to search
             </Link>
           </div>
 
@@ -102,17 +103,13 @@ class DishDetail extends React.Component {
               <tbody>{ingredientList}</tbody>
             </table>
             <hr />
-            <div id="ingredientTotal">
-              <span id="dishPrice">{totalPrice}</span>
-              <button
-                id="addToMenuButton"
-                className="btn btn-orange"
-                onClick={e => {
-                  this.props.model.addDishToMenu(this.dishID);
-                }}>
-                Add to menu
-              </button>
-            </div>
+            <Button
+              onClick={e => {
+                model.addDishToMenu(this.dishID);
+              }}
+              text="Add to menu"
+            />
+            <span className="total-price">TOTAL: {totalPrice} SEK</span>
           </div>
         </div>
         <section id="prepSection">

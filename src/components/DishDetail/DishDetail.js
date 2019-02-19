@@ -13,8 +13,7 @@ class DishDetail extends React.Component {
 
     this.state = {
       hasData: false,
-      numberOfPeople: this.props.model.getStoreData('numberOfPeople'),
-      selectedDishes: []
+      numberOfPeople: this.props.model.getStoreData('numberOfPeople')
     };
 
     props.model.requestRecipeInfo(this.dishID).then(() => {
@@ -43,7 +42,6 @@ class DishDetail extends React.Component {
 
     const model = this.props.model;
     const viewingDish = model.getViewingDish();
-    const selectedDishes = model.getStoreData('selectedDishes');
 
     const totalPrice = parseInt(
       viewingDish.pricePerServing * this.state.numberOfPeople

@@ -9,6 +9,7 @@ import DinnerOverview from './components/DinnerOverview/DinnerOverview';
 import DinnerPrintout from './components/DinnerPrintout/DinnerPrintout';
 import SelectDish from './components/SelectDish/SelectDish';
 import Welcome from './components/Welcome/Welcome';
+import DishDetail from './components/DishDetail/DishDetail';
 
 import './styling/style.scss';
 
@@ -16,14 +17,14 @@ class App extends React.Component {
   componentDidMount() {
     window.addEventListener(
       'beforeunload',
-      modelInstance.bindToSelf(modelInstance.storeData),
+      modelInstance.bindToSelf(modelInstance.storeData)
     );
   }
 
   componentWillUnmount() {
     window.removeEventListener(
       'beforeunload',
-      modelInstance.bindToSelf(modelInstance.storeData),
+      modelInstance.bindToSelf(modelInstance.storeData)
     );
   }
 
@@ -36,6 +37,10 @@ class App extends React.Component {
 
         <div className="page-container">
           <Route exact path="/" component={Welcome} />
+          <Route
+            path="/dish/:id"
+            render={() => <DishDetail model={modelInstance} />}
+          />
           <Route
             path="/search"
             render={() => <SelectDish model={modelInstance} />}
@@ -64,5 +69,5 @@ ReactDOM.render(
   <BrowserRouter>
     <App title={title} />
   </BrowserRouter>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );

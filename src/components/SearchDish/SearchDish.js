@@ -13,7 +13,6 @@ class SearchDish extends React.Component {
       offset: searchCondition.offset,
       // searchCondition: this.props.model.getStoreData('searchCondition'),
     };
-    console.log('searchDish constructor', this.state);
   }
 
   componentDidMount() {
@@ -27,8 +26,6 @@ class SearchDish extends React.Component {
   // what's the purpose of this function?
   // now search condition is disappeared after refresh
   update() {
-    console.log('searchDish update called', searchCondition);
-
     const searchCondition = this.props.model.getStoreData('searchCondition');
     this.setState({
       offset: searchCondition.offset,

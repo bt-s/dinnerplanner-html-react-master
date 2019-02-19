@@ -58,6 +58,15 @@ class Sidebar extends React.Component {
   render() {
     const showMenu = this.state.showMenu;
     const numberOfPeople = this.state.numberOfPeople;
+    const dishes = this.props.model.getStoreData('selectedDishes');
+    console.log(dishes[0]);
+
+    const dishList = dishes.map(dish => (
+      <li>
+        <span>{dish.title}</span>
+        <span>{dish.pricePerServing}</span>
+      </li>
+    ));
 
     const sidebarSubHeader = (
       <div className="sidebar-sub-header">
@@ -81,11 +90,8 @@ class Sidebar extends React.Component {
             arrowUp={faAngleUp}
             arrowDown={faAngleDown}
           />
-
           {sidebarSubHeader}
-
-          <ul id="selectedDishes" />
-
+          <ul id="selectedDishes">{dishList}</ul>
           <div id="totalPrice" />
           <Link to="/dinner-overview">
             <Button text="Confirm Dinner" />

@@ -1,0 +1,40 @@
+.dish-detail-page {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  @include media-breakpoint(sm) {
+    flex-direction: row;
+  }
+}
+
+.dish-details-overview {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @include media-breakpoint(sm) {
+    flex-direction: row;
+  }
+}
+
+.dish-ingredients {
+  background: #ffe599;
+  border: 4px solid #000;
+  height: 100%;
+  padding: 16px 24px;
+  margin-left: 16px;
+  padding-left: 16px;
+  margin-top: 32px;
+
+  @include media-breakpoint(sm) {
+    margin-top: 0px;
+  }
+}
+
+.dish-description-wrapper {
+  margin-left: 16px;
+}
+
+#prepSection {
+  margin-top: 32px;
+  padding: 16px;
+}

@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import {Router, Route} from 'react-router';
 
 import {kebabCase} from '../../Utils';
 
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
+import DishDetail from '../DishDetail/DishDetail';
 
 class Dishes extends React.Component {
   constructor(props) {
@@ -30,7 +32,7 @@ class Dishes extends React.Component {
     this.callAPI(
       this.state.searchCondition[0],
       this.state.searchCondition[1],
-      this.state.offset,
+      this.state.offset
     );
   }
 
@@ -48,9 +50,9 @@ class Dishes extends React.Component {
         this.callAPI(
           this.state.searchCondition[0],
           this.state.searchCondition[1],
-          this.state.offset,
+          this.state.offset
         );
-      },
+      }
     );
   }
 
@@ -94,10 +96,10 @@ class Dishes extends React.Component {
         this.callAPI(
           this.state.searchCondition[0],
           this.state.searchCondition[1],
-          this.state.offset,
+          this.state.offset
         );
         this.props.model.updateStoreData('offset', this.state.offset);
-      },
+      }
     );
   };
 
@@ -111,7 +113,7 @@ class Dishes extends React.Component {
         break;
       case 'LOADED':
         dishesList = this.state.dishes.map(dish => (
-          <Link to={'/dish/' + kebabCase(dish.title)} key={dish.id} href="/">
+          <Link to={'/dish/' + dish.id} key={dish.id} href="/">
             <img src={baseUri + dish.image} alt={dish.title} />
             <h3>{dish.title}</h3>
           </Link>

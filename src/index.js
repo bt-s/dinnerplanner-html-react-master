@@ -35,8 +35,7 @@ class App extends React.Component {
           <h1
             onClick={e => {
               window.location.assign('/');
-            }}
-          >
+            }}>
             {this.props.title}
           </h1>
         </header>
@@ -71,11 +70,9 @@ App.propTypes = {
   title: PropTypes.string
 };
 
-const title = 'Dinner Planner';
-
 ReactDOM.render(
   <BrowserRouter>
-    <App title={title} />
+    <App title="Dinner Planner" />
   </BrowserRouter>,
   document.getElementById('root')
 );

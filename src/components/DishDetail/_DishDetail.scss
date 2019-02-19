@@ -1,0 +1,69 @@
+.dish-detail-page {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  @include media-breakpoint(sm) {
+    flex-direction: row;
+  }
+}
+
+.dish-detail-container {
+  flex: 0 0 100%;
+  max-width: 100%;
+
+  @include media-breakpoint(sm) {
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+}
+
+.dish-details-overview {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include media-breakpoint(sm) {
+    flex-direction: row;
+  }
+}
+
+.dish-ingredients {
+  background: #ffe599;
+  border: 4px solid #000;
+  height: 100%;
+  padding: 16px 24px;
+  margin-left: 16px;
+  padding-left: 16px;
+  margin-top: 32px;
+  flex: 0 0 100%;
+  max-width: 100%;
+
+  @include media-breakpoint(sm) {
+    flex: 0 0 50%;
+    max-width: 50%;
+    margin-top: 0px;
+  }
+}
+
+.dish-description {
+  flex: 0 0 100%;
+  max-width: 100%;
+  margin-left: 16px;
+
+  @include media-breakpoint(sm) {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+.preparation-section {
+  margin-top: 32px;
+  padding: 16px;
+  flex: 0 0 100%;
+  max-width: 100%;
+}

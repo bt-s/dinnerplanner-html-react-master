@@ -1,19 +1,20 @@
 import {APIKey} from './APIKey';
-import {StoreUtil, print} from '../Utils';
+import {StoreUtil /*, print*/} from '../Utils';
 
 const httpOptions = {
   method: 'GET',
-  headers: {'X-Mashape-Key': APIKey},
+  headers: {'X-Mashape-Key': APIKey}
 };
 
 class DinnerModel {
   _storeAgent = new StoreUtil({
     selectedDishes: [],
     searchCondition: {kwd: '', type: ''},
-    viewingDishID: '2',
+    viewingDishID: 1,
     offset: 0,
-    numberOfPeople: 0,
+    numberOfPeople: 0
   });
+  _storedDishes = {};
   _observers = [];
 
   constructor(num = 1, readLocal = true) {
@@ -33,7 +34,7 @@ class DinnerModel {
       'soup',
       'beverage',
       'sauce',
-      'drink',
+      'drink'
     ];
 
     this.searchCondition = ['', '', 0];
@@ -57,6 +58,7 @@ class DinnerModel {
         this.notifyObservers();
         break;
       case 'selectedDishes':
+        this.notifyObservers('selectedDishes');
         break;
       default:
         break;
@@ -68,6 +70,59 @@ class DinnerModel {
 
   storeData() {
     this._storeAgent.save();
+  }
+
+  URLWithParams(url, params) {
+    let urlParams = new URLSearchParams();
+    for (let key in params) {
+      urlParams.append(key, params[key]);
+    }
+    return url + '?' + urlParams.toString();
+  }
+
+  getViewingDish() {
+    return this._storedDishes[this.getStoreData('viewingDishID')];
+  }
+
+  addDishToMenu(id) {
+    let dishes = this.getStoreData('selectedDishes');
+    for (let i = 0; i < dishes.length; i++) {
+      if (dishes[i].id === id) {
+        return;
+      }
+    }
+    dishes.push(this._storedDishes[id]);
+    this.updateStoreData('selectedDishes', dishes);
+  }
+
+  requestRecipeInfo(dishID) {
+    const APIRecipeInfo =
+      'http://sunset.nada.kth.se:8080/iprog/group/30/recipes/{id}/information';
+    const url = this.URLWithParams(APIRecipeInfo.replace('{id}', dishID), {
+      id: dishID,
+      includeNutrition: false
+    });
+
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-Mashape-Key': APIKey
+      }
+    };
+
+    return fetch(url, options)
+      .then(res => res.json())
+      .then(dish => {
+        this._storedDishes[dishID] = dish;
+        this.updateStoreData('viewingDishID', dishID);
+      })
+      .catch(error => {
+        if (error.PageNotFound) {
+          alert('Sorry, This dish is unvailable');
+          throw error;
+        }
+        alert(error);
+      });
   }
 
   // API Calls
@@ -113,8 +168,8 @@ class DinnerModel {
     this._observers = this._observers.filter(o => o !== observer);
   }
 
-  notifyObservers() {
-    this._observers.forEach(o => o.update());
+  notifyObservers(info) {
+    this._observers.forEach(o => o.update(info));
   }
 
   getDishTypes() {

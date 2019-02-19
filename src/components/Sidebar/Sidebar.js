@@ -10,7 +10,7 @@ import {
   faAngleDown,
   faAngleUp,
   faBars,
-  faTimes,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 
 class Sidebar extends React.Component {
@@ -19,7 +19,7 @@ class Sidebar extends React.Component {
 
     this.state = {
       numberOfPeople: this.props.model.getStoreData('numberOfPeople'),
-      showMenu: false,
+      showMenu: false
     };
   }
 
@@ -33,7 +33,7 @@ class Sidebar extends React.Component {
 
   update() {
     this.setState({
-      numberOfPeople: this.props.model.getStoreData('numberOfPeople'),
+      numberOfPeople: this.props.model.getStoreData('numberOfPeople')
     });
   }
 
@@ -51,13 +51,21 @@ class Sidebar extends React.Component {
 
   onMenuToggle = e => {
     this.setState({
-      showMenu: !this.state.showMenu,
+      showMenu: !this.state.showMenu
     });
   };
 
   render() {
     const showMenu = this.state.showMenu;
     const numberOfPeople = this.state.numberOfPeople;
+    const dishes = this.props.model.getStoreData('selectedDishes');
+
+    const dishList = dishes.map((dish, i) => (
+      <li key={i}>
+        <span>{dish.title}</span>
+        <span>{dish.pricePerServing}</span>
+      </li>
+    ));
 
     const sidebarSubHeader = (
       <div className="sidebar-sub-header">
@@ -65,6 +73,16 @@ class Sidebar extends React.Component {
         <span>Cost</span>
       </div>
     );
+
+    const totalPrice =
+      numberOfPeople *
+      dishes.reduce((acc, cur) => {
+        return (
+          parseFloat(
+            acc.hasOwnProperty('pricePerServing') ? acc.pricePerServing : acc
+          ) + parseFloat(cur.pricePerServing)
+        ).toFixed(2);
+      }, 0);
 
     return (
       <div className={showMenu ? 'sidebar col menu-open' : 'sidebar col'}>
@@ -84,9 +102,10 @@ class Sidebar extends React.Component {
 
           {sidebarSubHeader}
 
-          <ul id="selectedDishes" />
+          <ul>{dishList}</ul>
 
-          <div id="totalPrice" />
+          <div>TOTAL: {totalPrice} SEK</div>
+
           <Link to="/dinner-overview">
             <Button text="Confirm Dinner" />
           </Link>
@@ -97,7 +116,7 @@ class Sidebar extends React.Component {
 }
 
 Sidebar.propTypes = {
-  model: PropTypes.object,
+  model: PropTypes.object
 };
 
 export default Sidebar;

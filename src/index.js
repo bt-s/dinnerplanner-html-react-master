@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {modelInstance} from './data/DinnerModel';
@@ -9,6 +9,7 @@ import DinnerOverview from './components/DinnerOverview/DinnerOverview';
 import DinnerPrintout from './components/DinnerPrintout/DinnerPrintout';
 import SelectDish from './components/SelectDish/SelectDish';
 import Welcome from './components/Welcome/Welcome';
+import DishDetailPage from './components/DishDetail/DishDetailPage';
 
 import './styling/style.scss';
 
@@ -16,14 +17,14 @@ class App extends React.Component {
   componentDidMount() {
     window.addEventListener(
       'beforeunload',
-      modelInstance.bindToSelf(modelInstance.storeData),
+      modelInstance.bindToSelf(modelInstance.storeData)
     );
   }
 
   componentWillUnmount() {
     window.removeEventListener(
       'beforeunload',
-      modelInstance.bindToSelf(modelInstance.storeData),
+      modelInstance.bindToSelf(modelInstance.storeData)
     );
   }
 
@@ -35,19 +36,25 @@ class App extends React.Component {
         </header>
 
         <div className="page-container">
-          <Route exact path="/" component={Welcome} />
-          <Route
-            path="/search"
-            render={() => <SelectDish model={modelInstance} />}
-          />
-          <Route
-            path="/dinner-overview"
-            render={() => <DinnerOverview model={modelInstance} />}
-          />
-          <Route
-            path="/dinner-printout"
-            render={() => <DinnerPrintout model={modelInstance} />}
-          />
+          <Switch>
+            <Route exact path="/" component={Welcome} />
+            <Route
+              path="/dish/:id"
+              render={() => <DishDetailPage model={modelInstance} />}
+            />
+            <Route
+              path="/search"
+              render={() => <SelectDish model={modelInstance} />}
+            />
+            <Route
+              path="/dinner-overview"
+              render={() => <DinnerOverview model={modelInstance} />}
+            />
+            <Route
+              path="/dinner-printout"
+              render={() => <DinnerPrintout model={modelInstance} />}
+            />
+          </Switch>
         </div>
       </React.Fragment>
     );
@@ -55,7 +62,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string
 };
 
 const title = 'Dinner Planner';
@@ -64,5 +71,5 @@ ReactDOM.render(
   <BrowserRouter>
     <App title={title} />
   </BrowserRouter>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );

@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
-import {kebabCase} from '../../Utils';
-
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
 
@@ -17,7 +15,7 @@ class Dishes extends React.Component {
       status: 'INITIAL',
       itemsPerPage: 10,
       offset: this.props.model.getStoreData('offset'),
-      searchCondition: this.props.model.getStoreData('searchCondition'),
+      searchCondition: this.props.model.getStoreData('searchCondition')
     };
   }
 
@@ -30,7 +28,7 @@ class Dishes extends React.Component {
     this.callAPI(
       this.state.searchCondition[0],
       this.state.searchCondition[1],
-      this.state.offset,
+      this.state.offset
     );
   }
 
@@ -42,15 +40,15 @@ class Dishes extends React.Component {
     this.setState(
       state => ({
         searchCondition: this.props.model.getStoreData('searchCondition'),
-        offset: this.props.model.getStoreData('offset'),
+        offset: this.props.model.getStoreData('offset')
       }),
       () => {
         this.callAPI(
           this.state.searchCondition[0],
           this.state.searchCondition[1],
-          this.state.offset,
+          this.state.offset
         );
-      },
+      }
     );
   }
 
@@ -61,12 +59,12 @@ class Dishes extends React.Component {
         this.setState({
           status: 'LOADED',
           dishes: dishes.results,
-          baseUri: dishes.baseUri,
+          baseUri: dishes.baseUri
         });
       })
       .catch(() => {
         this.setState({
-          status: 'ERROR',
+          status: 'ERROR'
         });
       });
   };
@@ -88,16 +86,16 @@ class Dishes extends React.Component {
     this.setState(
       state => ({
         offset: state.offset + stepSize,
-        status: 'INITIAL',
+        status: 'INITIAL'
       }),
       () => {
         this.callAPI(
           this.state.searchCondition[0],
           this.state.searchCondition[1],
-          this.state.offset,
+          this.state.offset
         );
         this.props.model.updateStoreData('offset', this.state.offset);
-      },
+      }
     );
   };
 
@@ -111,7 +109,7 @@ class Dishes extends React.Component {
         break;
       case 'LOADED':
         dishesList = this.state.dishes.map(dish => (
-          <Link to={'/dish/' + kebabCase(dish.title)} key={dish.id} href="/">
+          <Link to={'/dish/' + dish.id} key={dish.id} href="/">
             <img src={baseUri + dish.image} alt={dish.title} />
             <h3>{dish.title}</h3>
           </Link>
@@ -157,7 +155,7 @@ class Dishes extends React.Component {
 }
 
 Dishes.propTypes = {
-  model: PropTypes.object,
+  model: PropTypes.object
 };
 
 export default Dishes;

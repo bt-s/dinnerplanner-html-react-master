@@ -21,7 +21,7 @@ const print = (...info) => {
 
 class StoreUtil {
   constructor(template) {
-    //map to store key-value pairs
+    // Map to store key-value pairs
     this.dbMap = {};
     if (template) {
       for (const key in template) {
@@ -38,7 +38,8 @@ class StoreUtil {
     return this.dbMap[k].value;
   }
 
-  //if you lockType, it will try to convert loaded data to the type when you save it
+  // If you lockType, it will try to convert loaded
+  // data to the type when you save it
   add(k, v, typeLock = true) {
     if (this.dbMap[k]) {
       console.error('key ' + k + ' already exists');
@@ -101,11 +102,11 @@ class StoreUtil {
     return parser[newType](value);
   }
 
-  // read from local according to registered keys in dbMap
+  // Read from local according to registered keys in dbMap
   load() {
     for (const key in this.dbMap) {
       if (localStorage[key]) {
-        //convert type
+        // Convert type
         let newVal = this.dbMap[key].locked
           ? this.typeParser(localStorage[key], this.dbMap[key].type)
           : localStorage[key];
@@ -132,9 +133,9 @@ const computeTotalPrice = (numberOfPeople, dishes) => {
         parseFloat(
           acc.hasOwnProperty('pricePerServing') ? acc.pricePerServing : acc
         ) + parseFloat(cur.pricePerServing)
-      ).toFixed(2);
+      );
     }, 0)
-  );
+  ).toFixed(2);
 };
 
 export {computeTotalPrice, kebabCase, titalizeWords, StoreUtil, print};

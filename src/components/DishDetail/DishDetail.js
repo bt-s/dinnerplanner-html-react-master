@@ -37,17 +37,22 @@ class DishDetail extends React.Component {
       return <Loader />;
     }
     const viewingDish = this.props.model.getViewingDish();
+
+    const selectedDishes = this.props.model.getStoreData('selectedDishes');
+
     const totalPrice =
-      'TOTAL: ' +
-      this.state.numberOfPeople *
-        this.props.model.getStoreData('selectedDishes').reduce((a, b) => {
-          return (
-            parseFloat(
-              a.hasOwnProperty('pricePerServing') ? a.pricePerServing : a
-            ) + parseFloat(b.pricePerServing)
-          ).toFixed(2);
-        }) +
-      ' SEK';
+      selectedDishes === undefined || selectedDishes.length === 0
+        ? 'TOTAL: 0'
+        : 'TOTAL: ' +
+          this.state.numberOfPeople *
+            this.props.model.getStoreData('selectedDishes').reduce((a, b) => {
+              return (
+                parseFloat(
+                  a.hasOwnProperty('pricePerServing') ? a.pricePerServing : a
+                ) + parseFloat(b.pricePerServing)
+              ).toFixed(2);
+            }) +
+          ' SEK';
     let ingredientList = [];
     viewingDish.extendedIngredients.forEach(ingredient => {
       let tableItem = (

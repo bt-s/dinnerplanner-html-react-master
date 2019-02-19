@@ -1,9 +1,9 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
+import DishDescription from './DishDescription';
+import DishIngredients from './DishIngredients';
 
 class DishDetail extends React.Component {
   constructor(props) {
@@ -43,53 +43,15 @@ class DishDetail extends React.Component {
     const model = this.props.model;
     const viewingDish = model.getViewingDish();
 
-    const totalPrice = parseInt(
-      viewingDish.pricePerServing * this.state.numberOfPeople
-    ).toFixed(2);
-
-    const ingredientList = viewingDish.extendedIngredients.map(
-      (ingredient, i) => (
-        <tr key={i}>
-          <td>
-            {ingredient.amount + ' ' + ingredient.measures.metric.unitShort}
-          </td>
-          <td>{ingredient.name}</td>
-        </tr>
-      )
-    );
-
     return (
       <div className="dish-detail-container">
         <section className="dish-details-overview">
-          <div className="dish-description">
-            <h2>{viewingDish.title}</h2>
-            <img src={viewingDish.image} alt={viewingDish.title} />
-            <p>{viewingDish.instructions}</p>
-            <Link
-              to="/search"
-              id="backToSearchButton"
-              className="btn btn-orange btn-pointy">
-              Back to search
-            </Link>
-          </div>
-
-          <div className="dish-ingredients">
-            <div className="dish-ingredients-heading">
-              Ingredients For {this.state.numberOfPeople} People
-            </div>
-            <hr />
-            <table>
-              <tbody>{ingredientList}</tbody>
-            </table>
-            <hr />
-            <Button
-              onClick={e => {
-                model.addDishToMenu(this.dishID);
-              }}
-              text="Add to menu"
-            />
-            <span className="total-price">TOTAL: {totalPrice} SEK</span>
-          </div>
+          <DishDescription model={model} />
+          <DishIngredients
+            dishId={this.dishId}
+            model={model}
+            numberOfPeople={this.state.numberOfPeople}
+          />
         </section>
         <section>
           <h2>Preparation</h2>

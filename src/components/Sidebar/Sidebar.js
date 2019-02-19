@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import {computeTotalPrice} from '../../Utils';
+
 import Button from '../Button/Button';
 import SidebarHeader from './SidebarHeader';
 import SidebarPeople from './SidebarPeople';
@@ -74,15 +76,7 @@ class Sidebar extends React.Component {
       </div>
     );
 
-    const totalPrice =
-      numberOfPeople *
-      dishes.reduce((acc, cur) => {
-        return (
-          parseFloat(
-            acc.hasOwnProperty('pricePerServing') ? acc.pricePerServing : acc
-          ) + parseFloat(cur.pricePerServing)
-        ).toFixed(2);
-      }, 0);
+    const totalPrice = computeTotalPrice(numberOfPeople, dishes);
 
     return (
       <div className={showMenu ? 'sidebar col menu-open' : 'sidebar col'}>

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import TitleBar from '../TitleBar/TitleBar';
 
 const DinnerPrintout = props => {
-  let printList = props.model.getStoreData('selectedDishes').map(dish => (
-    <li class="printout-dish">
+  let printList = props.model.getStoreData('selectedDishes').map((dish, i) => (
+    <li className="printout-dish" key={i}>
       <img src={dish.image} alt="" />
       <section>
         <h2>{dish.title}</h2>

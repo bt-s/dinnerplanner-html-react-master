@@ -73,7 +73,7 @@ class StoreUtil {
           'type of',
           v,
           'does not match the locked type which is',
-          this.dbMap[k].type,
+          this.dbMap[k].type
         );
       }
     }
@@ -89,10 +89,10 @@ class StoreUtil {
           ? JSON.parse(input)
           : console.error(
               input,
-              "is not a string, can't be parsed to an object",
+              "is not a string, can't be parsed to an object"
             ),
       string: input =>
-        typeof input === 'object' ? JSON.stringify(input) : input.toString(),
+        typeof input === 'object' ? JSON.stringify(input) : input.toString()
     };
     if (!parser[newType]) {
       console.error("Can't parse to type", newType);
@@ -118,10 +118,23 @@ class StoreUtil {
     for (const key in this.dbMap) {
       localStorage.setItem(
         key,
-        this.typeParser(this.dbMap[key].value, 'string'),
+        this.typeParser(this.dbMap[key].value, 'string')
       );
     }
   }
 }
 
-export {kebabCase, titalizeWords, StoreUtil, print};
+const computeTotalPrice = (numberOfPeople, dishes) => {
+  return (
+    numberOfPeople *
+    dishes.reduce((acc, cur) => {
+      return (
+        parseFloat(
+          acc.hasOwnProperty('pricePerServing') ? acc.pricePerServing : acc
+        ) + parseFloat(cur.pricePerServing)
+      ).toFixed(2);
+    }, 0)
+  );
+};
+
+export {computeTotalPrice, kebabCase, titalizeWords, StoreUtil, print};

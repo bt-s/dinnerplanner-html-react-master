@@ -5,14 +5,18 @@ import Button from '../Button/Button';
 
 class WelcomeScreen extends React.Component {
   render() {
-    const buttonText = 'Create dinner';
+    const welcomeText =
+      'Welcome to the Dinner Planner React app written for KTH Royal ' +
+      'Institute of Technology DH2642 course (Interaction Programming and ' +
+      'the Dynamic Web). \n\n Authors: Yao, Ming and Bas Straathof. \n\n ' +
+      'Thanks to Michel Tabari for providing the React Startup code.';
 
     return (
       <div className="welcome">
-        <p>Welcome to the dinner planner React Startup code!</p>
+        <p>{welcomeText}</p>
 
         <Link to="/search">
-          <Button text={buttonText} />
+          <Button text="Create dinner" />
         </Link>
       </div>
     );

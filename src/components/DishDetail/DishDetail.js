@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import Sidebar from '../Sidebar/Sidebar';
 import Loader from '../Loader/Loader';
 
 class DishDetail extends React.Component {

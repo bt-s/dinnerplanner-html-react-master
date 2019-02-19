@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import Button from '../Button/Button';
 
-function SidebarPeople(props) {
+const SidebarPeople = props => {
   return (
     <div className="people-container">
       <span>People</span>
@@ -28,13 +28,13 @@ function SidebarPeople(props) {
       </div>
     </div>
   );
-}
+};
 
 SidebarPeople.propTypes = {
   numberOfPeople: PropTypes.number,
   onChangeNumberOfPeople: PropTypes.func,
   arrowUp: PropTypes.object,
-  arrowDown: PropTypes.object,
+  arrowDown: PropTypes.object
 };
 
 export default SidebarPeople;

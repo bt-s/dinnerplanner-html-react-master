@@ -9,7 +9,7 @@ import DinnerOverview from './components/DinnerOverview/DinnerOverview';
 import DinnerPrintout from './components/DinnerPrintout/DinnerPrintout';
 import SelectDish from './components/SelectDish/SelectDish';
 import Welcome from './components/Welcome/Welcome';
-import DishDetail from './components/DishDetail/DishDetail';
+import DishDetailPage from './components/DishDetail/DishDetailPage';
 
 import './styling/style.scss';
 
@@ -40,7 +40,7 @@ class App extends React.Component {
             <Route exact path="/" component={Welcome} />
             <Route
               path="/dish/:id"
-              render={() => <DishDetail model={modelInstance} />}
+              render={() => <DishDetailPage model={modelInstance} />}
             />
             <Route
               path="/search"

@@ -41,35 +41,24 @@ class DishDetail extends React.Component {
       return <Loader />;
     }
 
-    const viewingDish = this.props.model.getViewingDish();
-    const selectedDishes = this.props.model.getStoreData('selectedDishes');
+    const model = this.props.model;
+    const viewingDish = model.getViewingDish();
+    const selectedDishes = model.getStoreData('selectedDishes');
 
-    const totalPrice =
-      selectedDishes === undefined || selectedDishes.length === 0
-        ? 'TOTAL: 0'
-        : 'TOTAL: ' +
-          this.state.numberOfPeople *
-            selectedDishes.reduce((a, b) => {
-              return (
-                parseFloat(
-                  a.hasOwnProperty('pricePerServing') ? a.pricePerServing : a
-                ) + parseFloat(b.pricePerServing)
-              ).toFixed(2);
-            }) +
-          ' SEK';
+    const totalPrice = parseInt(
+      viewingDish.pricePerServing * this.state.numberOfPeople
+    ).toFixed(2);
 
-    let ingredientList = [];
-    viewingDish.extendedIngredients.forEach((ingredient, i) => {
-      let tableItem = (
+    const ingredientList = viewingDish.extendedIngredients.map(
+      (ingredient, i) => (
         <tr key={i}>
           <td>
             {ingredient.amount + ' ' + ingredient.measures.metric.unitShort}
           </td>
           <td>{ingredient.name}</td>
         </tr>
-      );
-      ingredientList.push(tableItem);
-    });
+      )
+    );
 
     return (
       <div className="dish-detail-container">

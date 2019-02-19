@@ -54,9 +54,9 @@ class DishDetail extends React.Component {
             }) +
           ' SEK';
     let ingredientList = [];
-    viewingDish.extendedIngredients.forEach(ingredient => {
+    viewingDish.extendedIngredients.forEach((ingredient, i) => {
       let tableItem = (
-        <tr>
+        <tr key={i}>
           <td>
             {ingredient.amount + ' ' + ingredient.measures.metric.unitShort}
           </td>

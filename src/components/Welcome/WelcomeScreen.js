@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 import Button from '../Button/Button';
 
-class Welcome extends React.Component {
+class WelcomeScreen extends React.Component {
   render() {
     const buttonText = 'Create dinner';
 
@@ -19,4 +19,4 @@ class Welcome extends React.Component {
   }
 }
 
-export default Welcome;
+export default WelcomeScreen;

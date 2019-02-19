@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 
 import {titalizeWords} from '../../Utils';
 
-class SearchDish extends React.Component {
+class DishSearchBar extends React.Component {
   constructor(props) {
     super(props);
     const searchCondition = this.props.model.getStoreData('searchCondition');
     this.state = {
       keyword: searchCondition.kwd,
       type: searchCondition.type,
-      offset: searchCondition.offset,
+      offset: searchCondition.offset
       // searchCondition: this.props.model.getStoreData('searchCondition'),
     };
   }
@@ -30,7 +30,7 @@ class SearchDish extends React.Component {
     this.setState({
       offset: searchCondition.offset,
       type: searchCondition.type,
-      keyword: searchCondition.kwd,
+      keyword: searchCondition.kwd
     });
   }
 
@@ -46,7 +46,7 @@ class SearchDish extends React.Component {
     this.props.model.updateStoreData('searchCondition', [
       this.state.keyword,
       this.state.type,
-      this.state.offset,
+      this.state.offset
     ]);
     e.preventDefault();
   };
@@ -77,8 +77,7 @@ class SearchDish extends React.Component {
             <select
               className="dish-type-select"
               value={this.state.type}
-              onChange={this.onHandleSelectChange}
-            >
+              onChange={this.onHandleSelectChange}>
               <option value="">All</option>
               {dishTypes}
             </select>
@@ -94,8 +93,8 @@ class SearchDish extends React.Component {
   }
 }
 
-SearchDish.propTypes = {
-  model: PropTypes.object,
+DishSearchBar.propTypes = {
+  model: PropTypes.object
 };
 
-export default SearchDish;
+export default DishSearchBar;

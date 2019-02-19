@@ -3,12 +3,12 @@
 @import 'includes/variables';
 
 @import '../components/Button/_Button';
-@import '../components/Dishes/_Dishes';
+@import '../components/DishItems/_DishItems';
 @import '../components/DinnerOverview/_DinnerOverview';
 @import '../components/DinnerPrintout/_DinnerPrintout';
 @import '../components/Loader/_Loader';
-@import '../components/SearchDish/_SearchDish';
-@import '../components/SelectDish/_SelectDish';
+@import '../components/DishSearchBar/_DishSearchBar';
+@import '../components/SearchDishes/_SearchDishes';
 @import '../components/Sidebar/_Sidebar';
 @import '../components/Welcome/_Welcome';
 @import '../components/DishDetail/DishDetail';

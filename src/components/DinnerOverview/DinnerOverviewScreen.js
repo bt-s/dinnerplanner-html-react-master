@@ -7,7 +7,7 @@ import {computeTotalPrice} from '../../Utils';
 import Button from '../Button/Button';
 import TitleBar from '../TitleBar/TitleBar';
 
-class DinnerOverview extends React.Component {
+class DinnerOverviewScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -18,6 +18,7 @@ class DinnerOverview extends React.Component {
 
   render() {
     const dishes = this.props.model.getStoreData('selectedDishes');
+    const totalPrice = computeTotalPrice(this.state.numberOfPeople, dishes);
 
     const dishItems = dishes.map((dish, i) => (
       <li key={i}>
@@ -26,8 +27,6 @@ class DinnerOverview extends React.Component {
         <span>{dish.pricePerServing} SEK</span>
       </li>
     ));
-
-    const totalPrice = computeTotalPrice(this.state.numberOfPeople, dishes);
 
     return (
       <div className="dinner-overview col">
@@ -48,8 +47,8 @@ class DinnerOverview extends React.Component {
   }
 }
 
-DinnerOverview.propTypes = {
+DinnerOverviewScreen.propTypes = {
   model: PropTypes.object
 };
 
-export default DinnerOverview;
+export default DinnerOverviewScreen;

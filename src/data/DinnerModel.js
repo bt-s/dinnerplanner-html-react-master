@@ -3,7 +3,7 @@ import {StoreUtil /*, print*/} from '../Utils';
 
 const httpOptions = {
   method: 'GET',
-  headers: {'X-Mashape-Key': APIKey}
+  headers: {'X-Mashape-Key': APIKey},
 };
 
 class DinnerModel {
@@ -12,7 +12,7 @@ class DinnerModel {
     searchCondition: {kwd: '', type: ''},
     viewingDishID: 1,
     offset: 0,
-    numberOfPeople: 0
+    numberOfPeople: 0,
   });
   _storedDishes = {};
   _observers = [];
@@ -35,7 +35,7 @@ class DinnerModel {
       'soup',
       'beverage',
       'sauce',
-      'drink'
+      'drink',
     ];
 
     this.searchCondition = ['', '', 0];
@@ -107,14 +107,14 @@ class DinnerModel {
 
     const url = this.URLWithParams(APIRecipeInfo.replace('{id}', dishID), {
       id: dishID,
-      includeNutrition: false
+      includeNutrition: false,
     });
 
     const options = {
       method: 'GET',
       headers: {
-        'X-Mashape-Key': APIKey
-      }
+        'X-Mashape-Key': APIKey,
+      },
     };
 
     return fetch(url, options)

@@ -8,9 +8,9 @@ class DishSearchBar extends React.Component {
     super(props);
     const searchCondition = this.props.model.getStoreData('searchCondition');
     this.state = {
-      keyword: searchCondition.kwd,
-      type: searchCondition.type,
-      offset: searchCondition.offset
+      keyword: searchCondition[0],
+      type: searchCondition[1],
+      offset: searchCondition[2],
       // searchCondition: this.props.model.getStoreData('searchCondition'),
     };
   }
@@ -27,10 +27,11 @@ class DishSearchBar extends React.Component {
   // now search condition is disappeared after refresh
   update() {
     const searchCondition = this.props.model.getStoreData('searchCondition');
+    const newOffset = this.props.model.getStoreData('offset');
     this.setState({
-      offset: searchCondition.offset,
-      type: searchCondition.type,
-      keyword: searchCondition.kwd
+      offset: newOffset,
+      keyword: searchCondition[0],
+      type: searchCondition[1],
     });
   }
 
@@ -46,7 +47,7 @@ class DishSearchBar extends React.Component {
     this.props.model.updateStoreData('searchCondition', [
       this.state.keyword,
       this.state.type,
-      this.state.offset
+      this.state.offset,
     ]);
     e.preventDefault();
   };
@@ -77,7 +78,8 @@ class DishSearchBar extends React.Component {
             <select
               className="dish-type-select"
               value={this.state.type}
-              onChange={this.onHandleSelectChange}>
+              onChange={this.onHandleSelectChange}
+            >
               <option value="">All</option>
               {dishTypes}
             </select>
@@ -94,7 +96,7 @@ class DishSearchBar extends React.Component {
 }
 
 DishSearchBar.propTypes = {
-  model: PropTypes.object
+  model: PropTypes.object,
 };
 
 export default DishSearchBar;

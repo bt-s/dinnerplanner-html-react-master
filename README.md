@@ -1,4 +1,18 @@
+# NOTES Lab 4
+
+Note 1 (by Bas Straathof and Yao, Ming):
+Make sure to run:
+$ npm install
+$ npm start
+
+Note 2 (by Bas Straathof and Yao, Ming):
+Development was done in Google Chrome and Firefox; we are not 100% sure whether the app works in Safari.
+
+Note 3 (by Bas Straathof and Yao, Ming):
+We have created a separate file for storing the API key. Please add your key to js/model/dinnerModel.js (at line 5).
+
 # Dinner Planner React
+
 KTH Royal Institute of Technology DH2642 (Interaction Programming and the Dynamic Web) Dinner Planner React App
 
 ## How to get started
@@ -21,24 +35,23 @@ bellow to install all the neded dependencies (e.g. the framework libraries) and 
 
 ## Understanding the startup code
 
-* `public/index.html` - this is the static html file, and as opposed to previous labs, we don't put view's HTML here. It should only contain HTML that's shared among all the views (e.g. header, footer)
-* `src/data/DinnerModel.js` - example of dinner model with number of guests, getAllDishes function implemented using `fetch()` and Observer pattern. You can copy other functions from your original model (and modify as needed to make it work with ES6 JavaScript class)
-* `src/index.js` - this is where React is started. You will normally not need to modify this file, but you can check it to see how React is started and how it calls the App - which is our root component.
-* `src/index.css` - put your global styles here
-* `src/App.js` - root component you can modify it's HTML and add different routes to it
-* `src/Dishes`, `src/SelectDish` etc. - contain the `.js` and `.css` file for each component. You should create your own components roughly corresponding to your views from previous labs.
+- `public/index.html` - this is the static html file, and as opposed to previous labs, we don't put view's HTML here. It should only contain HTML that's shared among all the views (e.g. header, footer)
+- `src/data/DinnerModel.js` - example of dinner model with number of guests, getAllDishes function implemented using `fetch()` and Observer pattern. You can copy other functions from your original model (and modify as needed to make it work with ES6 JavaScript class)
+- `src/index.js` - this is where React is started. You will normally not need to modify this file, but you can check it to see how React is started and how it calls the App - which is our root component.
+- `src/index.css` - put your global styles here
+- `src/App.js` - root component you can modify it's HTML and add different routes to it
+- `src/Dishes`, `src/SelectDish` etc. - contain the `.js` and `.css` file for each component. You should create your own components roughly corresponding to your views from previous labs.
 
 Check the components and see how they work. There are additional comments in the code.
 
 ## What you need to do
 
-* reimplement the missing views following React practices
-* use [Router](https://reacttraining.com/react-router/web/guides/philosophy) to map different url address (e.g. /search, /dish/ID) to specific components (the startup code already does that for welcome screen and select dish screen)
-* implement cookies or localStorage so that the numberOfGuests and menu are persisted on the page reload
-
+- reimplement the missing views following React practices
+- use [Router](https://reacttraining.com/react-router/web/guides/philosophy) to map different url address (e.g. /search, /dish/ID) to specific components (the startup code already does that for welcome screen and select dish screen)
+- implement cookies or localStorage so that the numberOfGuests and menu are persisted on the page reload
 
 ## Credits
 
-* Michel Tabari for fine tunning the code
+- Michel Tabari for fine tunning the code
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).

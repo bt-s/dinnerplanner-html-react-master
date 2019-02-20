@@ -1,5 +1,8 @@
-import {APIKey} from './APIKey';
+// import {APIKey} from './APIKey';
 import {StoreUtil /*, print*/} from '../Utils';
+
+// Your APIKey goes here
+//const APIKey = ...;
 
 const httpOptions = {
   method: 'GET',

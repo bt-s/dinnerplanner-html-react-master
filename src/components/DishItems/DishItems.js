@@ -15,7 +15,7 @@ class DishesItems extends React.Component {
       status: 'INITIAL',
       itemsPerPage: 10,
       offset: this.props.model.getStoreData('offset'),
-      searchCondition: this.props.model.getStoreData('searchCondition'),
+      searchCondition: this.props.model.getStoreData('searchCondition')
     };
   }
 
@@ -24,12 +24,9 @@ class DishesItems extends React.Component {
 
     this.setState({isMounted: !this.state.isMounted});
 
-    // kwd and type should be added ......
     this.callAPI(
       this.state.searchCondition.keyword,
       this.state.searchCondition.type,
-      // this.state.searchCondition[0],
-      // this.state.searchCondition[1],
       this.state.offset
     );
   }
@@ -42,14 +39,12 @@ class DishesItems extends React.Component {
     this.setState(
       state => ({
         searchCondition: this.props.model.getStoreData('searchCondition'),
-        offset: this.props.model.getStoreData('offset'),
+        offset: this.props.model.getStoreData('offset')
       }),
       () => {
         this.callAPI(
           this.state.searchCondition.keyword,
           this.state.searchCondition.type,
-          // this.state.searchCondition[0],
-          // this.state.searchCondition[1],
           this.state.offset
         );
       }
@@ -63,12 +58,12 @@ class DishesItems extends React.Component {
         this.setState({
           status: 'LOADED',
           dishes: dishes.results,
-          baseUri: dishes.baseUri,
+          baseUri: dishes.baseUri
         });
       })
       .catch(() => {
         this.setState({
-          status: 'ERROR',
+          status: 'ERROR'
         });
       });
   };
@@ -90,12 +85,10 @@ class DishesItems extends React.Component {
     this.setState(
       state => ({
         offset: state.offset + stepSize,
-        status: 'INITIAL',
+        status: 'INITIAL'
       }),
       () => {
         this.callAPI(
-          // this.state.searchCondition[0],
-          // this.state.searchCondition[1],
           this.state.searchCondition.keyword,
           this.state.searchCondition.type,
           this.state.offset
@@ -161,7 +154,7 @@ class DishesItems extends React.Component {
 }
 
 DishesItems.propTypes = {
-  model: PropTypes.object,
+  model: PropTypes.object
 };
 
 export default DishesItems;

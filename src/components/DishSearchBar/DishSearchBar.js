@@ -8,17 +8,9 @@ class DishSearchBar extends React.Component {
     super(props);
     const searchCondition = this.props.model.getStoreData('searchCondition');
     this.state = {
-      // before this look like keyword:searchCondition.kwd
-      // As you and I used different code convention so searchCondition //is a List in your case, but a set in my case.
-      // But I would suggest to change to set
-
       keyword: searchCondition.keyword,
       type: searchCondition.type,
-      offset: searchCondition.offset,
-      // keyword: searchCondition[0],
-      // type: searchCondition[1],
-      // offset: searchCondition[2],
-      // searchCondition: this.props.model.getStoreData('searchCondition'),
+      offset: searchCondition.offset
     };
   }
 
@@ -30,17 +22,13 @@ class DishSearchBar extends React.Component {
     this.props.model.removeObserver(this);
   }
 
-  // what's the purpose of this function?
-  // now search condition is disappeared after refresh
   update() {
     const searchCondition = this.props.model.getStoreData('searchCondition');
     const newOffset = this.props.model.getStoreData('offset');
     this.setState({
       offset: newOffset,
-      // keyword: searchCondition[0],
-      // type: searchCondition[1],
       keyword: searchCondition.keyword,
-      type: searchCondition.type,
+      type: searchCondition.type
     });
   }
 
@@ -53,15 +41,10 @@ class DishSearchBar extends React.Component {
   };
 
   onHandleSubmit = e => {
-    // this.props.model.updateStoreData('searchCondition', [
-    //   this.state.keyword,
-    //   this.state.type,
-    //   this.state.offset,
-    // ]);
     this.props.model.updateStoreData('searchCondition', {
       keyword: this.state.keyword,
       type: this.state.type,
-      offset: this.state.offset,
+      offset: this.state.offset
     });
     e.preventDefault();
   };
@@ -92,8 +75,7 @@ class DishSearchBar extends React.Component {
             <select
               className="dish-type-select"
               value={this.state.type}
-              onChange={this.onHandleSelectChange}
-            >
+              onChange={this.onHandleSelectChange}>
               <option value="">All</option>
               {dishTypes}
             </select>
@@ -110,7 +92,7 @@ class DishSearchBar extends React.Component {
 }
 
 DishSearchBar.propTypes = {
-  model: PropTypes.object,
+  model: PropTypes.object
 };
 
 export default DishSearchBar;

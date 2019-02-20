@@ -8,9 +8,16 @@ class DishSearchBar extends React.Component {
     super(props);
     const searchCondition = this.props.model.getStoreData('searchCondition');
     this.state = {
-      keyword: searchCondition[0],
-      type: searchCondition[1],
-      offset: searchCondition[2],
+      // before this look like keyword:searchCondition.kwd
+      // As you and I used different code convention so searchCondition //is a List in your case, but a set in my case.
+      // But I would suggest to change to set
+
+      keyword: searchCondition.keyword,
+      type: searchCondition.type,
+      offset: searchCondition.offset,
+      // keyword: searchCondition[0],
+      // type: searchCondition[1],
+      // offset: searchCondition[2],
       // searchCondition: this.props.model.getStoreData('searchCondition'),
     };
   }
@@ -30,8 +37,10 @@ class DishSearchBar extends React.Component {
     const newOffset = this.props.model.getStoreData('offset');
     this.setState({
       offset: newOffset,
-      keyword: searchCondition[0],
-      type: searchCondition[1],
+      // keyword: searchCondition[0],
+      // type: searchCondition[1],
+      keyword: searchCondition.keyword,
+      type: searchCondition.type,
     });
   }
 
@@ -44,11 +53,16 @@ class DishSearchBar extends React.Component {
   };
 
   onHandleSubmit = e => {
-    this.props.model.updateStoreData('searchCondition', [
-      this.state.keyword,
-      this.state.type,
-      this.state.offset,
-    ]);
+    // this.props.model.updateStoreData('searchCondition', [
+    //   this.state.keyword,
+    //   this.state.type,
+    //   this.state.offset,
+    // ]);
+    this.props.model.updateStoreData('searchCondition', {
+      keyword: this.state.keyword,
+      type: this.state.type,
+      offset: this.state.offset,
+    });
     e.preventDefault();
   };
 

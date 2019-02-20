@@ -9,7 +9,7 @@ const httpOptions = {
 class DinnerModel {
   _storeAgent = new StoreUtil({
     selectedDishes: [],
-    searchCondition: {kwd: '', type: ''},
+    searchCondition: {keyword: '', type: ''},
     viewingDishID: 1,
     offset: 0,
     numberOfPeople: 0,

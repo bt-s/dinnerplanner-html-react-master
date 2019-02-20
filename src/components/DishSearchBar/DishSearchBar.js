@@ -8,10 +8,9 @@ class DishSearchBar extends React.Component {
     super(props);
     const searchCondition = this.props.model.getStoreData('searchCondition');
     this.state = {
-      keyword: searchCondition.kwd,
+      keyword: searchCondition.keyword,
       type: searchCondition.type,
       offset: searchCondition.offset
-      // searchCondition: this.props.model.getStoreData('searchCondition'),
     };
   }
 
@@ -23,14 +22,13 @@ class DishSearchBar extends React.Component {
     this.props.model.removeObserver(this);
   }
 
-  // what's the purpose of this function?
-  // now search condition is disappeared after refresh
   update() {
     const searchCondition = this.props.model.getStoreData('searchCondition');
+    const newOffset = this.props.model.getStoreData('offset');
     this.setState({
-      offset: searchCondition.offset,
-      type: searchCondition.type,
-      keyword: searchCondition.kwd
+      offset: newOffset,
+      keyword: searchCondition.keyword,
+      type: searchCondition.type
     });
   }
 
@@ -43,11 +41,11 @@ class DishSearchBar extends React.Component {
   };
 
   onHandleSubmit = e => {
-    this.props.model.updateStoreData('searchCondition', [
-      this.state.keyword,
-      this.state.type,
-      this.state.offset
-    ]);
+    this.props.model.updateStoreData('searchCondition', {
+      keyword: this.state.keyword,
+      type: this.state.type,
+      offset: this.state.offset
+    });
     e.preventDefault();
   };
 

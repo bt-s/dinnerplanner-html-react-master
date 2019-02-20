@@ -24,10 +24,9 @@ class DishesItems extends React.Component {
 
     this.setState({isMounted: !this.state.isMounted});
 
-    // kwd and type should be added ......
     this.callAPI(
-      this.state.searchCondition[0],
-      this.state.searchCondition[1],
+      this.state.searchCondition.keyword,
+      this.state.searchCondition.type,
       this.state.offset
     );
   }
@@ -44,8 +43,8 @@ class DishesItems extends React.Component {
       }),
       () => {
         this.callAPI(
-          this.state.searchCondition[0],
-          this.state.searchCondition[1],
+          this.state.searchCondition.keyword,
+          this.state.searchCondition.type,
           this.state.offset
         );
       }
@@ -90,8 +89,8 @@ class DishesItems extends React.Component {
       }),
       () => {
         this.callAPI(
-          this.state.searchCondition[0],
-          this.state.searchCondition[1],
+          this.state.searchCondition.keyword,
+          this.state.searchCondition.type,
           this.state.offset
         );
         this.props.model.updateStoreData('offset', this.state.offset);
